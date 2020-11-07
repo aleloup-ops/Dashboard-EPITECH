@@ -2,7 +2,7 @@
 import { User } from './user';
 import { Router } from '@angular/router';
 
-import auth from 'firebase/app'
+import firebase from 'firebase/app'
 
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -87,7 +87,7 @@ export class AuthService {
      * @constructor
      */
     GoogleAuth () {
-        this.AuthLogin(new auth.auth.GoogleAuthProvider());
+        this.AuthLogin(new firebase.auth.GoogleAuthProvider());
     }
 
     /**

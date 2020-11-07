@@ -6,9 +6,9 @@ services:
   server:
     restart: always
     build:
-      context: api
+      context: server
     volumes:
-      - ./api:/code
+      - ./server:/code
     command: python manage.py runserver 0.0.0.0:8080
     ports:
       - "8080:8080"

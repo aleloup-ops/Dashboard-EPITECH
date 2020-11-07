@@ -1,0 +1,5 @@
+Django
+psycopg2-binary>=2.8
+djangorestframework
+firebase-admin
+requests==2.22.0
