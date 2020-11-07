@@ -7,6 +7,8 @@ services:
     restart: always
     build:
       context: server
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
     volumes:
       - ./server:/code
     command: python manage.py runserver 0.0.0.0:8080
@@ -17,6 +19,8 @@ services:
   frontend:
     build:
       context: front/app
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
     volumes:
       - ./front/app:/app
     ports:
