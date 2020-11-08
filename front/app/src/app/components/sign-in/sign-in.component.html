@@ -1,26 +1,5 @@
-<div class="displayTable">
-    <div class="displayTableCell">
+<!--
 
-        <div class="authBlock">
-            <h3>Sign In</h3>
-            <div class="formGroup">
-                <input type="text" class="formControl" placeholder="Usedqzijndzqame" #userName required>
-            </div>
-
-            <div class="formGroup">
-                <input type="password" class="formControl" placeholder="Password" #userPassword required>
-            </div>
-
-            <!-- Calling SignIn Api from AuthService -->
-            <div class="formGroup">
-                <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
-            </div>
-
-            <div class="formGroup">
-                <span class="or"><span class="orInner">Or</span></span>
-            </div>
-
-            <!-- Calling GoogleAuth Api from AuthService -->
             <div class="formGroup">
                 <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
                     <i class="fab fa-google-plus-g"></i>
@@ -28,10 +7,37 @@
                 </button>
             </div>
         </div>
+-->
 
-        <div class="redirectToLogin">
-            <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
-        </div>
+<mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <br />
+    <mat-card-content>
+        <form (ngSubmit)="authService.SignIn(userEmail.value, userPassword.value)">
+            <p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Enter you email</mat-label>
+                    <input matInput placeholder="pat@example.com" [formControl]="email" #userEmail required>
+                    <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Enter your password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" #userPassword />
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </p>
 
-    </div>
-</div>
+            <button mat-raised-button color="primary" type="submit" class="login">Log in</button>
+
+            <br /> <br />
+            <div class="redirectToLogin">
+                <span>Don't have an account ?    <span class="redirect"> <a mat-raised-button routerLink=".">Sign up</a></span></span>
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>

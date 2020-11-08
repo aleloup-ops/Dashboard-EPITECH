@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,8 +12,13 @@ import { environment } from '../environments/environment';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AuthService } from './shared/services/auth.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AngularMaterialModule } from './angular-material.module';
 
 @NgModule({
   declarations: [
@@ -29,12 +34,22 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
       AngularFireAuthModule,
       AngularFirestoreModule,
       AngularFireModule.initializeApp(environment.firebase),
+      BrowserAnimationsModule,
+
+      FormsModule,
+      ReactiveFormsModule,
+
+      // MATERIAL ANGULAR
+      AngularMaterialModule,
   ],
 
   providers: [
       AuthService,
   ],
-  bootstrap: [AppComponent]
+
+  bootstrap: [AppComponent],
+
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 
 export class AppModule { }
