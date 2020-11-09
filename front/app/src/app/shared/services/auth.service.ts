@@ -61,12 +61,17 @@ export class AuthService {
      * @param password
      * @constructor
      */
-    SignUp(email, password) {
+    SignUp(email, password, username) {
         return this.afAuth.createUserWithEmailAndPassword(email, password)
             .then((result) => {
                 this.ngZone.run(() => {
                     this.router.navigate(['sign-in'])
                 });
+
+                result.user.updateProfile({
+                    displayName: username
+                })
+
                 this.SetUserData(result.user);
             }).catch((err) => {
                 window.alert(err.message);
