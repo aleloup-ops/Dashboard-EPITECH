@@ -6,11 +6,9 @@ import requests
 from firebase_admin import auth
 from firebase_admin import credentials
 
-cred = credentials.Certificate("credit.json")
-firebase_admin.initialize_app(cred)
-
-user = auth.get_user('of9mSupELZOTGNS6SAiA2CF9k5v2')
-print('Successfully fetched user data: {0}'.format(user.email))
+if not firebase_admin._apps:
+    cred = credentials.Certificate("credit.json")
+    firebase_admin.initialize_app(cred)
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")

@@ -1,15 +1,28 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 import requests
 from django.http import HttpResponse
-# Create your views here.
+from django.template.loader import render_to_string
+
+SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
+CLIENT_SIDE_URL = "http://localhost"
+PORT = 8080
+REDIRECT_URI = "{}:{}/twitter/callback/q".format(CLIENT_SIDE_URL, PORT)
 
 def twitchTopGames(request):
-    myobj = {
+    x = redirect("https://accounts.spotify.com/en/authorize?client_id=8820e35d93994ec5841e459fc88e7147&response_type=code&redirect_uri=" + REDIRECT_URI + "&scope=user-read-private%20user-read-email")
+    return (x)
+
+def callback(request):
+    auth_token = request.GET.get('code')
+    code_payload = {
+        "grant_type": "authorization_code",
+        "code": str(auth_token),
+        "redirect_uri": REDIRECT_URI,
         'client_id': '8820e35d93994ec5841e459fc88e7147',
-        'response_type':  'code',
-        'redirect_uri': 'http://localhost'
+        'client_secret': '0e9f86a26d8d43099412cf1b6405c49f',
     }
 
-    x = requests.get("https://accounts.spotify.com/en/authorize?client_id=8820e35d93994ec5841e459fc88e7147&response_type=code&redirect_uri=http://localhost:8080")
+    post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload)
 
-    return HttpResponse(response)
+    return HttpResponse(post_request)
