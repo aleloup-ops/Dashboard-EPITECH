@@ -13,7 +13,5 @@ export class DashboardComponent implements OnInit {
 
   constructor(public authService: AuthService, public router: Router, public ngZone: NgZone) { }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void { }
 }

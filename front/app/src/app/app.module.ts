@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -12,6 +12,7 @@ import { environment } from '../environments/environment';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
+import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthService } from './shared/services/auth.service';
@@ -30,6 +31,7 @@ import { AngularMaterialModule } from './angular-material.module';
 
   imports: [
       BrowserModule,
+      HttpClientModule,
       AppRoutingModule,
       AngularFireAuthModule,
       AngularFirestoreModule,

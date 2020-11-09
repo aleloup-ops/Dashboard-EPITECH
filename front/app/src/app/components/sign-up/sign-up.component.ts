@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
+
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,9 +13,23 @@ import { AuthService } from '../../shared/services/auth.service';
 
 export class SignUpComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  hide = true;
+  email = new FormControl('', [Validators.required, Validators.email]);
 
-  ngOnInit(): void {
+  constructor(public authService: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'google',
+      sanitizer.bypassSecurityTrustResourceUrl("assets/Google.svg")
+    );
   }
+
+  getErrorMessage () {
+    if (this.email.hasError('required'))
+      return 'You must enter a value';
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  ngOnInit(): void {}
 
 }

@@ -1,16 +1,5 @@
-<!--
-
-            <div class="formGroup">
-                <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-                    <i class="fab fa-google-plus-g"></i>
-                    Log in with Google
-                </button>
-            </div>
-        </div>
--->
-
 <mat-card>
-    <mat-card-title>Login</mat-card-title>
+    <mat-card-title>LOGIN</mat-card-title>
     <br />
     <mat-card-content>
         <form (ngSubmit)="authService.SignIn(userEmail.value, userPassword.value)">
@@ -34,8 +23,17 @@
             <button mat-raised-button color="primary" type="submit" class="login">Log in</button>
 
             <br /> <br />
+
+            <div style="display: flex; align-items: center; justify-content:center;">
+                <button mat-button (click)="authService.GoogleAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="google" aria-hidden="false" aria-label="Example google SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Log in with Google
+                </button>
+            </div>
+
+            <br />
             <div class="redirectToLogin">
-                <span>Don't have an account ?    <span class="redirect"> <a mat-raised-button routerLink=".">Sign up</a></span></span>
+                <span>Don't have an account ?    <span class="redirect"> <a mat-raised-button routerLink="/register-user">Sign up</a></span></span>
             </div>
 
         </form>
