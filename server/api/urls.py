@@ -18,5 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('api/', include('api.apidashboard.urls')),
+    path('spotify/', include('api.spotify.urls')),
+    path('twitch/', include('api.twitch.urls')),
+    path('twitter/', include('api.twitter.urls')),
     path('admin/', admin.site.urls),
 ]
