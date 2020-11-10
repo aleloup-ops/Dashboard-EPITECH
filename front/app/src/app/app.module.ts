@@ -20,6 +20,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularMaterialModule } from './angular-material.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { GridsterModule } from 'angular-gridster2';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +46,8 @@ import { AngularMaterialModule } from './angular-material.module';
 
       // MATERIAL ANGULAR
       AngularMaterialModule,
+      DragDropModule,
+      GridsterModule
   ],
 
   providers: [
