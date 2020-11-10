@@ -73,6 +73,7 @@ export class AuthService {
                 })
 
                 this.SetUserData(result.user);
+
             }).catch((err) => {
                 window.alert(err.message);
             })
@@ -93,6 +94,46 @@ export class AuthService {
      */
     GoogleAuth () {
         this.AuthLogin(new firebase.auth.GoogleAuthProvider());
+    }
+
+    /**
+     * link Google account to the current login account.
+     */
+    linkGoogleAuth () {
+        this.linkAccount(new firebase.auth.GoogleAuthProvider());
+    }
+
+    /**
+     * link Twitter account to the current login account.
+     */
+    linkTwitterAuth () {
+        this.linkAccount(new firebase.auth.TwitterAuthProvider());
+    }
+
+    /**
+     * link Github account to the current login account.
+     */
+    linkGithubAuth () {
+        console.log(JSON.parse(localStorage.getItem('user')));
+
+        this.linkAccount(new firebase.auth.GithubAuthProvider());
+    }
+
+    /**
+     * 
+     * @param provider 
+     */
+    linkAccount (provider) {
+        this.afAuth.authState.subscribe(user => {
+            if (user) {
+                user.linkWithPopup(provider).then(function (result) {
+
+                }).catch (err => {
+                    window.alert(err);
+                })
+            }
+        })
+
     }
 
     /**
@@ -131,6 +172,7 @@ export class AuthService {
      */
     SetUserData(user) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+
         const userData: User = {
             uid: user.uid,
             email: user.email,
