@@ -1,0 +1,11 @@
+.twitter-background {
+    background-color: #1DA1F2;
+    border: 6px solid #90d7f5;
+    border-radius: 10px;
+}
+
+#twitter-logo {
+    margin-top: 2%;
+    width: 20%;
+    height: auto;
+}

@@ -22,6 +22,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { GridsterModule } from 'angular-gridster2';
+import { TwitchBaseComponent } from './components/twitch/twitch-base/twitch-base.component';
+import { TwitchFollowsComponent } from './components/twitch/twitch-follows/twitch-follows.component';
+import { TwitchSearchComponent } from './components/twitch/twitch-search/twitch-search.component';
+import { TwitchUsersComponent } from './components/twitch/twitch-users/twitch-users.component';
+import { TwitterBaseComponent } from './components/twitter/twitter-base/twitter-base.component';
+import { SpotifyBaseComponent } from './components/spotify-base/spotify-base.component';
 
 
 @NgModule({
@@ -29,7 +35,13 @@ import { GridsterModule } from 'angular-gridster2';
     AppComponent,
     SignInComponent,
     SignUpComponent,
-    DashboardComponent
+    DashboardComponent,
+    TwitchBaseComponent,
+    TwitchFollowsComponent,
+    TwitchSearchComponent,
+    TwitchUsersComponent,
+    TwitterBaseComponent,
+    SpotifyBaseComponent
   ],
 
   imports: [

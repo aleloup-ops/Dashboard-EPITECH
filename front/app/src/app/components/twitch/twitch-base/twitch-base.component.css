@@ -1,0 +1,11 @@
+.twitch-background {
+    background-color: #6441a5;
+    border: 6px solid #b9a3e3;
+    border-radius: 10px;
+}
+
+#twitch-logo {
+    margin-top: 2%;
+    width: 15%;
+    height: auto;
+}
