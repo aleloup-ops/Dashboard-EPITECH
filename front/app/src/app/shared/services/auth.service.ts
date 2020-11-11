@@ -88,6 +88,8 @@ export class AuthService {
         return user !== null;
     }
 
+    // -------------------------- AUTH ---------------------------------------
+
     /**
      *
      * @constructor
@@ -95,6 +97,22 @@ export class AuthService {
     GoogleAuth () {
         this.AuthLogin(new firebase.auth.GoogleAuthProvider());
     }
+
+    /**
+     * 
+     */
+    GithubAuth () {
+        this.AuthLogin(new firebase.auth.GithubAuthProvider());
+    }
+
+    /**
+     * 
+     */
+    TwitterAuth () {
+        this.AuthLogin(new firebase.auth.TwitterAuthProvider());
+    }
+
+    // --------------------------- LINK ---------------------------------------------
 
     /**
      * link Google account to the current login account.
@@ -114,8 +132,6 @@ export class AuthService {
      * link Github account to the current login account.
      */
     linkGithubAuth () {
-        console.log(JSON.parse(localStorage.getItem('user')));
-
         this.linkAccount(new firebase.auth.GithubAuthProvider());
     }
 

@@ -33,10 +33,22 @@
 
             <br /> <br />
 
-            <div style="display: flex; align-items: center; justify-content:center;">
+            <div style="display: flex; align-items: center; justify-content:center;" >
                 <button mat-button (click)="authService.GoogleAuth()" style="padding: 1rem;">
                     <mat-icon svgIcon="google" aria-hidden="false" aria-label="Example google SVG icon" style="width: 50px; height:30px"></mat-icon>
                        Continue with Google
+                </button>
+
+                <button mat-button (click)="authService.GithubAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="github" aria-hidden="false" aria-label="Example github SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Continue with Github
+                </button>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content:center;" >
+                <button mat-button (click)="authService.TwitterAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="google" aria-hidden="false" aria-label="Example twitter SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Continue with Twitter
                 </button>
             </div>
 

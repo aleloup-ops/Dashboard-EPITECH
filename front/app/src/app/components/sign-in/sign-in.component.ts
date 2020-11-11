@@ -21,6 +21,11 @@ export class SignInComponent implements OnInit {
       'google',
       sanitizer.bypassSecurityTrustResourceUrl("assets/Google.svg")
     );
+
+    iconRegistry.addSvgIcon(
+      'github',
+      sanitizer.bypassSecurityTrustResourceUrl("assets/Github.svg"),
+    );
   }
 
   getErrorMessage () {

@@ -29,6 +29,11 @@
                     <mat-icon svgIcon="google" aria-hidden="false" aria-label="Example google SVG icon" style="width: 50px; height:30px"></mat-icon>
                        Log in with Google
                 </button>
+
+                <button mat-button (click)="authService.GithubAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="github" aria-hidden="false" aria-label="Example google SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Log in with Github
+                </button>
             </div>
 
             <br />
