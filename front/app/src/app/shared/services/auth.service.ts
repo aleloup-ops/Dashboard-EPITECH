@@ -61,20 +61,26 @@ export class AuthService {
      * @param password
      * @constructor
      */
-    SignUp(email, password) {
+    SignUp(email, password, username) {
         return this.afAuth.createUserWithEmailAndPassword(email, password)
             .then((result) => {
                 this.ngZone.run(() => {
                     this.router.navigate(['sign-in'])
                 });
+
+                result.user.updateProfile({
+                    displayName: username
+                })
+
                 this.SetUserData(result.user);
+
             }).catch((err) => {
                 window.alert(err.message);
             })
     }
 
     /**
-     *
+     * 
      */
     get isLoggedIn(): Boolean {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -82,12 +88,81 @@ export class AuthService {
         return user !== null;
     }
 
+    // -------------------------- AUTH ---------------------------------------
+
     /**
      *
      * @constructor
      */
     GoogleAuth () {
         this.AuthLogin(new firebase.auth.GoogleAuthProvider());
+    }
+
+    /**
+     * 
+     */
+    GithubAuth () {
+        this.AuthLogin(new firebase.auth.GithubAuthProvider());
+    }
+
+    /**
+     * 
+     */
+    TwitterAuth () {
+        this.AuthLogin(new firebase.auth.TwitterAuthProvider());
+    }
+
+    /**
+     * 
+     */
+    FacebookAuth () {
+        this.AuthLogin(new firebase.auth.FacebookAuthProvider());
+    }
+
+    // --------------------------- LINK ---------------------------------------------
+
+    /**
+     * link Google account to the current login account.
+     */
+    linkGoogleAuth () {
+        this.linkAccount(new firebase.auth.GoogleAuthProvider());
+    }
+
+    /**
+     * link Facebook account to the current login account.
+     */
+    linkFacebookAuth () {
+        this.linkAccount(new firebase.auth.FacebookAuthProvider());
+    }
+
+    /**
+     * link Twitter account to the current login account.
+     */
+    linkTwitterAuth () {
+        this.linkAccount(new firebase.auth.TwitterAuthProvider());
+    }
+
+    /**
+     * link Github account to the current login account.
+     */
+    linkGithubAuth () {
+        this.linkAccount(new firebase.auth.GithubAuthProvider());
+    }
+
+    /**
+     * 
+     * @param provider 
+     */
+    linkAccount (provider) {
+        this.afAuth.authState.subscribe(user => {
+            if (user) {
+                user.linkWithPopup(provider).then(function (result) {
+
+                }).catch (err => {
+                    window.alert(err);
+                })
+            }
+        })
     }
 
     /**
@@ -101,6 +176,7 @@ export class AuthService {
                 this.ngZone.run(() => {
                     this.router.navigate(['dashboard']);
                 })
+
                 this.SetUserData(result.user);
             }).catch((error) => {
                 window.alert(error.message);
@@ -126,6 +202,7 @@ export class AuthService {
      */
     SetUserData(user) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+
         const userData: User = {
             uid: user.uid,
             email: user.email,

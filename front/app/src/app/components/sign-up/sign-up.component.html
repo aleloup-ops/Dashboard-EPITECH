@@ -1,37 +1,67 @@
-<div class="displayTable">
-    <div class="displayTableCell">
 
-        <div class="authBlock">
-            <h3>Sign Up</h3>
+<mat-card>
+    <mat-card-title>SIGN UP</mat-card-title>
+    <br />
+    <mat-card-content>
+        <form (ngSubmit)="authService.SignUp(userEmail.value, userPassword.value, userName.value)">
 
-            <div class="formGroup">
-                <input type="email" class="formControl" placeholder="Email Address" #userEmail required>
-            </div>
+            <p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Enter you name</mat-label>
+                    <input matInput placeholder="Monique" #userName required>
+                </mat-form-field>
+            </p>
 
-            <div class="formGroup">
-                <input type="password" class="formControl" placeholder="Password" #userPwd required>
-            </div>
+            <p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Enter you email</mat-label>
+                    <input matInput placeholder="pat@example.com" [formControl]="email" #userEmail required>
+                    <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Enter your password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" #userPassword />
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </p>
 
-            <div class="formGroup">
-                <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
-            </div>
+            <button mat-raised-button color="primary" type="submit" class="login">Sign Up</button>
 
-            <div class="formGroup">
-                <span class="or"><span class="orInner">Or</span></span>
-            </div>
+            <br /> <br />
 
-            <!-- Continue with Google -->
-            <div class="formGroup">
-                <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-                    <i class="fab fa-google-plus-g"></i>
-                    Continue with Google
+            <div style="display: flex; align-items: center; justify-content:center;" >
+                <button mat-button (click)="authService.GoogleAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="google" aria-hidden="false" aria-label="Example google SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Continue with Google
+                </button>
+
+                <button mat-button (click)="authService.GithubAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="github" aria-hidden="false" aria-label="Example github SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Continue with Github
                 </button>
             </div>
-        </div>
 
-        <div class="redirectToLogin">
-            <span>Already have an account? <span class="redirect" routerLink="/sign-in">Log In</span></span>
-        </div>
-    </div>
+            <div style="display: flex; align-items: center; justify-content:center;" >
+                <button mat-button (click)="authService.TwitterAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="twitter" aria-hidden="false" aria-label="Example twitter SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Continue with Twitter
+                </button>
 
-</div>
+                <button mat-button (click)="authService.FacebookAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="facebook" aria-hidden="false" aria-label="Example facebook SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Continue with Facebook
+                </button>
+            </div>
+
+            <br />
+            <div class="redirectToLogin">
+                <span>Already have an account ?    <span class="redirect"> <a mat-raised-button routerLink="/sign-in">Login</a></span></span>
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>
