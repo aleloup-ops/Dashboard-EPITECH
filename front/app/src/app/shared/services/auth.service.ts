@@ -201,8 +201,6 @@ export class AuthService {
      * @constructor
      */
     SetUserData(user) {
-        console.log(JSON.parse(localStorage.getItem('user')));        
-
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 
         const userData: User = {
