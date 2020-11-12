@@ -26,11 +26,11 @@
                 <div class="row pt-3 pb-2 mb-3 border-bottom" *ngIf="authService.userData as user">
                     <h1 class="h2">Welcome to your dashboard <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
                     <div class="offset-ml-sm-auto offset-lg-6">
-                        <div class="row">
+                        <div routerLink="/widgets">
                             <button mat-mini-fab color="primary">
                                 <mat-icon>add</mat-icon>
                             </button>
-                            <h4 class="text-center" style="margin-top: 5%;">Add Widgets</h4>
+                            <h4 class="text-center">Add Widgets</h4>
                         </div>
                     </div>
                 </div>

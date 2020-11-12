@@ -1,0 +1,78 @@
+#enable-spotify-connection {
+    background-color: #1DB954;
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+#spotify-logo {
+    width: 40%;
+    padding: 2%;
+}
+
+#enable-spotify-connection:hover {
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+#spotify-logo:hover {
+    width: 40%;
+    padding: 2%;
+    content:url("../../../assets/Spotify_Logo_RGB_Green.png")
+}
+
+
+#enable-twitch-connection {
+    background-color: #6441a5;
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+#twitch-logo1 {
+    width: 13%;
+    padding: 2%;
+}
+
+#twitch-logo2 {
+    width: 30%;
+}
+
+#enable-twitch-connection:hover {
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+#twitch-logo1:hover {
+    width: 13%;
+    padding: 2%;
+    content: url("../../../assets/TwitchGlitchPurple.png");
+}
+
+#twitch-logo2:hover {
+    width: 30%;
+    content: url("../../../assets/Twitch_UnextrudedWordmarkPurple.png");
+}
+
+#enable-twitter-connection {
+    background-color: 	#1DA1F2;
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+#twitter-logo {
+    width: 15%;
+    padding: 2%;
+}
+
+#enable-twitter-connection:hover {
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+#twitter-logo:hover {
+    width: 15%;
+    padding: 2%;
+    content:url("../../../assets/Twitter_Logo_Blue.png")
+}

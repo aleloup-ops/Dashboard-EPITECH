@@ -28,6 +28,7 @@ import { TwitchSearchComponent } from './components/twitch/twitch-search/twitch-
 import { TwitchUsersComponent } from './components/twitch/twitch-users/twitch-users.component';
 import { TwitterBaseComponent } from './components/twitter/twitter-base/twitter-base.component';
 import { SpotifyBaseComponent } from './components/spotify-base/spotify-base.component';
+import { WidgetCreationComponent } from './components/widget-creation/widget-creation.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { SpotifyBaseComponent } from './components/spotify-base/spotify-base.com
     TwitchSearchComponent,
     TwitchUsersComponent,
     TwitterBaseComponent,
-    SpotifyBaseComponent
+    SpotifyBaseComponent,
+    WidgetCreationComponent
   ],
 
   imports: [
