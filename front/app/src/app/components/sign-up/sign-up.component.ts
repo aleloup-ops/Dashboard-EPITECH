@@ -26,6 +26,16 @@ export class SignUpComponent implements OnInit {
       'github',
       sanitizer.bypassSecurityTrustResourceUrl("assets/Github.svg"),
     );
+
+    iconRegistry.addSvgIcon(
+      'twitter',
+      sanitizer.bypassSecurityTrustResourceUrl("assets/Twitter_Bird.svg"),
+    );
+
+    iconRegistry.addSvgIcon(
+      'facebook',
+      sanitizer.bypassSecurityTrustResourceUrl("assets/facebook-logo.svg"),
+    );
   }
 
   getErrorMessage () {

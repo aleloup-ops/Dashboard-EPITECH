@@ -112,6 +112,13 @@ export class AuthService {
         this.AuthLogin(new firebase.auth.TwitterAuthProvider());
     }
 
+    /**
+     * 
+     */
+    FacebookAuth () {
+        this.AuthLogin(new firebase.auth.FacebookAuthProvider());
+    }
+
     // --------------------------- LINK ---------------------------------------------
 
     /**
@@ -119,6 +126,13 @@ export class AuthService {
      */
     linkGoogleAuth () {
         this.linkAccount(new firebase.auth.GoogleAuthProvider());
+    }
+
+    /**
+     * link Facebook account to the current login account.
+     */
+    linkFacebookAuth () {
+        this.linkAccount(new firebase.auth.FacebookAuthProvider());
     }
 
     /**
@@ -149,7 +163,6 @@ export class AuthService {
                 })
             }
         })
-
     }
 
     /**
@@ -163,6 +176,7 @@ export class AuthService {
                 this.ngZone.run(() => {
                     this.router.navigate(['dashboard']);
                 })
+
                 this.SetUserData(result.user);
             }).catch((error) => {
                 window.alert(error.message);
@@ -187,6 +201,8 @@ export class AuthService {
      * @constructor
      */
     SetUserData(user) {
+        console.log(JSON.parse(localStorage.getItem('user')));        
+
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 
         const userData: User = {

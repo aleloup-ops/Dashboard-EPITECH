@@ -17,6 +17,7 @@ export class SignInComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(public authService: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+
     iconRegistry.addSvgIcon(
       'google',
       sanitizer.bypassSecurityTrustResourceUrl("assets/Google.svg")
@@ -25,6 +26,16 @@ export class SignInComponent implements OnInit {
     iconRegistry.addSvgIcon(
       'github',
       sanitizer.bypassSecurityTrustResourceUrl("assets/Github.svg"),
+    );
+
+    iconRegistry.addSvgIcon(
+      'twitter',
+      sanitizer.bypassSecurityTrustResourceUrl("assets/Twitter_Bird.svg"),
+    );
+
+    iconRegistry.addSvgIcon(
+      'facebook',
+      sanitizer.bypassSecurityTrustResourceUrl("assets/facebook-logo.svg"),
     );
   }
 

@@ -36,6 +36,18 @@
                 </button>
             </div>
 
+            <div style="display: flex; align-items: center; justify-content:center;">
+                <button mat-button (click)="authService.TwitterAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="twitter" aria-hidden="false" aria-label="Example twitter SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Log in with Twitter
+                </button>
+
+                <button mat-button (click)="authService.FacebookAuth()" style="padding: 1rem;">
+                    <mat-icon svgIcon="facebook" aria-hidden="false" aria-label="Example facebook SVG icon" style="width: 50px; height:30px"></mat-icon>
+                       Log in with Facebook
+                </button>
+            </div>
+
             <br />
             <div class="redirectToLogin">
                 <span>Don't have an account ?    <span class="redirect"> <a mat-raised-button routerLink="/register-user">Sign up</a></span></span>
