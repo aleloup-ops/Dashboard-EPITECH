@@ -9,17 +9,18 @@
     padding: 2%;
 }
 
-#enable-spotify-connection:hover {
+/*#enable-spotify-connection:hover {
     background-color: white;
     border-radius: 20px;
     border: 2px solid black;
+    color: #1DB954;
 }
 
 #spotify-logo:hover {
     width: 40%;
     padding: 2%;
     content:url("../../../assets/Spotify_Logo_RGB_Green.png")
-}
+}*/
 
 
 #enable-twitch-connection {
@@ -37,7 +38,7 @@
     width: 30%;
 }
 
-#enable-twitch-connection:hover {
+/*#enable-twitch-connection:hover {
     background-color: white;
     border-radius: 20px;
     border: 2px solid black;
@@ -52,7 +53,7 @@
 #twitch-logo2:hover {
     width: 30%;
     content: url("../../../assets/Twitch_UnextrudedWordmarkPurple.png");
-}
+}*/
 
 #enable-twitter-connection {
     background-color: 	#1DA1F2;
@@ -65,7 +66,7 @@
     padding: 2%;
 }
 
-#enable-twitter-connection:hover {
+/*#enable-twitter-connection:hover {
     background-color: white;
     border-radius: 20px;
     border: 2px solid black;
@@ -75,4 +76,12 @@
     width: 15%;
     padding: 2%;
     content:url("../../../assets/Twitter_Logo_Blue.png")
+}*/
+
+.widgets {
+    color: white;
+    font-size: 130%;
+    padding-top: 2%;
+    padding-right: 5%;
+    padding-left: 5%;
 }
