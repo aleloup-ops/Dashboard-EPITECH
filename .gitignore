@@ -1,3 +1,4 @@
 server/.idea/
 server/api/__pycache__/
-server/api/apidashboard/__pycache__
+server/api/twitter/__pycache__/
+server/api/apidashboard/__pycache__/
