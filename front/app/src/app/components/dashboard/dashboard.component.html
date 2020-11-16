@@ -30,28 +30,16 @@
                             <button mat-mini-fab color="primary">
                                 <mat-icon>add</mat-icon>
                             </button>
-                            <h4 class="text-center" style="margin-top: 5%;">Add Widgets</h4>
+                            <h4 class="text-center" style="margin-top: 5%; margin-left: 5px;">Add Widgets</h4>
                         </div>
                     </div>
                 </div>
-                <!-- Show user data when logged in -->
-               <!-- <div class="row" *ngIf="authService.userData as user">
-                    <div class="col-md-12">
-                        <div class="media">
-                            <div class="media-body">
-                                <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-                                <p>User ID: <strong>{{user.uid}}</strong></p>
-                                <p>Email: <strong>{{user.email}}</strong></p>
-                            </div>
-                        </div>
-                    </div>
-                </div> --->
-
             </div>
         </main>
 
     </div>
 </div>
+
 <gridster [options]="options" style="background-color: white;">
     <app-twitch-base></app-twitch-base>
     <app-twitter-base></app-twitter-base>
