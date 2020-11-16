@@ -29,4 +29,3 @@ def callback(request):
     post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload)
 
     return HttpResponse(post_request)
-

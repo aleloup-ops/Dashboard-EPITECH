@@ -5,17 +5,34 @@ import requests
 
 from firebase_admin import auth
 from firebase_admin import credentials
+from firebase_admin import db
+from firebase_admin import firestore
 import json
 import time
-
-
+from ..firebase_auth.verification import verification
 
 if not firebase_admin._apps:
     cred = credentials.Certificate("credit.json")
     firebase_admin.initialize_app(cred)
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+
+
+def initialize_client(request):
+    try:
+        auth_header = request.META.get("HTTP_AUTHORIZATION")
+
+        test = verification.createVar(auth_header)
+        print (test)
+
+        if (test is None):
+            return HttpResponse("The user doesn't exist", status = 400)
+
+        y = json.dumps(test)
+
+        return HttpResponse(y)
+
+    except:
+        return HttpResponse("No token provided", status = 401)
 
 
 def visitor_ip_address(request):

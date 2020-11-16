@@ -7,3 +7,8 @@ python-oauth2
 oauthlib
 oauth2
 urllib3
+#python-firebase
+git+https://github.com/ozgur/python-firebase
+markdown
+django-filter
+django-cors-headers
