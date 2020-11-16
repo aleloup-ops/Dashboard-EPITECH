@@ -10,7 +10,7 @@
                             <i class="fas fa-user"></i>User Profile
                         </a>
                     </li>
-                    <!-- Calling SignOut() Api from AuthService -->
+
                     <li class="nav-item">
                         <a class="nav-link" (click)="authService.SignOut()">
                             <i class="fas fa-sign-out-alt"></i>Log out
@@ -23,25 +23,28 @@
         <!-- Main content -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="inner-adjust">
-
-                <div class="pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">User Profile</h1>
-                </div>
-                <!-- Show user data when logged in -->
-                <div class="row" *ngIf="authService.userData as user">
-                    <div class="col-md-12">
-                        <div class="media">
-                            <div class="media-body">
-                                <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-                                <p>User ID: <strong>{{user.uid}}</strong></p>
-                                <p>Email: <strong>{{user.email}}</strong></p>
-                            </div>
+                <div class="row pt-3 pb-2 mb-3 border-bottom" *ngIf="authService.userData as user">
+                    <h1 class="h2">Welcome to your dashboard <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
+                    <div class="offset-ml-sm-auto offset-lg-6">
+                        <div class="row">
+                            <button mat-mini-fab color="primary">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                            <h4 class="text-center" style="margin-top: 5%; margin-left: 5px;">Add Widgets</h4>
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
 
     </div>
 </div>
+
+<gridster [options]="options" style="background-color: white;">
+    <app-twitch-base></app-twitch-base>
+    <app-twitter-base></app-twitter-base>
+    <app-spotify-base></app-spotify-base>
+    <app-twitch-base></app-twitch-base>
+    <app-twitch-base></app-twitch-base>
+    <app-twitch-base></app-twitch-base>
+</gridster>

@@ -1,0 +1,15 @@
+TWITTER
+    - SEARCH
+    -
+    -
+    -
+    -
+
+TWITCH:
+    - MEILLEUR JEU
+    - GET PROFILE
+
+SPOTIFY:
+    - 
+
+TRELLO:

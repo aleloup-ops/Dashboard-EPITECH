@@ -1,4 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 import firebase_admin
 import requests
@@ -14,7 +18,6 @@ from ..firebase_auth.verification import verification
 if not firebase_admin._apps:
     cred = credentials.Certificate("credit.json")
     firebase_admin.initialize_app(cred)
-
 
 
 def initialize_client(request):
@@ -88,3 +91,23 @@ def search(request):
     query = request.GET['query']
     message = "propriété GET : {} et requête : {}".format(obj, query)
     return HttpResponse(message)
+"""
+
+"""
+@api_view(['GET'])
+def index(request):
+    responseData = {
+        'id': 4,
+        'name': 'Test Response',
+        'roles' : ['Admin','User']
+    }
+
+    return Response(responseData)
+
+"""
+
+"""
+@api_view(['POST'])
+def test_post(request):
+
+    return Response(request.data)
