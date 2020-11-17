@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 
+import { HttpClient } from "@angular/common/http";
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,7 +16,6 @@ import { MatIconRegistry } from '@angular/material/icon';
 export class SignUpComponent implements OnInit {
 
   hide = true;
-  email = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(public authService: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
@@ -38,13 +39,5 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  getErrorMessage () {
-    if (this.email.hasError('required'))
-      return 'You must enter a value';
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
   ngOnInit(): void {}
-
 }

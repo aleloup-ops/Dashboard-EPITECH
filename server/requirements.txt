@@ -4,4 +4,11 @@ djangorestframework
 firebase-admin
 requests==2.22.0
 django-cors-headers
-rest_framework
+python-oauth2
+oauthlib
+oauth2
+urllib3
+#python-firebase
+git+https://github.com/ozgur/python-firebase
+markdown
+django-filter
