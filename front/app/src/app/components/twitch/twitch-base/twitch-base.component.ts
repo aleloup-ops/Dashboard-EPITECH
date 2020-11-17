@@ -3,6 +3,8 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 
 import {CompactType, DisplayGrid, Draggable, GridsterConfig, GridsterItem, GridType, PushDirections, Resizable} from 'angular-gridster2';
 
+import { TwitchConnectService } from '../../../shared/services/twitch-connect.service';
+
 interface Safe extends GridsterConfig {
   draggable: Draggable;
   resizable: Resizable;
@@ -17,7 +19,7 @@ interface Safe extends GridsterConfig {
 
 export class TwitchBaseComponent implements OnInit {
 
-  constructor() { }
+  constructor(public twitchService: TwitchConnectService) { }
   item: GridsterItem;
 
   ngOnInit(): void {

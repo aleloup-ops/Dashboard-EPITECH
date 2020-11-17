@@ -1,4 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 import firebase_admin
 
@@ -9,5 +12,15 @@ cred = credentials.Certificate("credit.json")
 
 firebase_admin.initialize_app(cred)
 
+@api_view(['GET'])
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    responseData = {
+        'id' : 4,
+        'name': 'Test Response',
+        'roles' : ['Admin', 'User']
+    }
+    return JsonResponse(responseData)
+
+@api_view(['POST'])
+def test_post(request):
+    return Response(request.data)

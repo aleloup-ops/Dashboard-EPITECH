@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy }
 
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { TwitchConnectService } from '../../shared/services/twitch-connect.service';
 
 @Component({
   selector: 'app-widget-creation',
@@ -10,9 +11,8 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class WidgetCreationComponent implements OnInit {
 
-  constructor() { }
+  constructor(public twitchService: TwitchConnectService, public authService: AuthService) { }
 
   ngOnInit(): void {
   }
-
 }

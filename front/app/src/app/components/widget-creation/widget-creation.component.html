@@ -12,18 +12,18 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-3">
-                            <button id="enable-spotify-connection">
+                            <button (click)="twitchService.spotifyRequest()" id="enable-spotify-connection">
                                 <img src="../../../assets/Spotify_Logo_RGB_White.png" alt="spotify_logo" id="spotify-logo">
                             </button>
                         </div>
                         <div class="col-lg-3">
-                            <button id="enable-twitch-connection">
+                            <button (click)="twitchService.twitchRequest()" id="enable-twitch-connection">
                                     <img src="../../../assets/TwitchGlitchWhite.png" alt="twitch_logo" id="twitch-logo1">
                                     <img src="../../../assets/Twitch-Wordmark-White.png" alt="twitch_logo" id="twitch-logo2">
                             </button>
                         </div>
                         <div class="col-lg-3">
-                            <button id="enable-twitter-connection">
+                            <button (click)="authService.GoogleAuth()" id="enable-twitter-connection">
                                     <img src="../../../assets/Twitter_Logo_WhiteOnBlue.png" alt="twitter_logo" id="twitter-logo">
                             </button>
                         </div>
