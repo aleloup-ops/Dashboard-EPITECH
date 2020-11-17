@@ -6,3 +6,4 @@ server/api/firebase_auth/__pycache__/
 server/api/twitch/__pycache__/
 server/api/user/__pycache__/
 server/api/spotify/__pycache__/
+server/api/widget/__pycache__/
