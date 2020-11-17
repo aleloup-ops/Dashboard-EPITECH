@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.gridData = JSON.parse(this.save.getData());
+    this.gridData = this.save.getData(JSON.parse(localStorage.getItem('user')).uid);
     console.log(this.gridData)
 
     this.options = {

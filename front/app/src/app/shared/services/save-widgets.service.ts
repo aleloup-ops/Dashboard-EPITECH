@@ -16,12 +16,12 @@ export class SaveWidgetsService {
 
   test
 
-  getData() {
-    this.http.get<any>('http://localhost:8080/api/widget/').subscribe(response => {
+  getData(uid) {
+    this.http.get<any>('http://localhost:8080/api/widget/' + uid).subscribe(response => {
       this.test = response;
       console.log(this.test);
     });
-    return this.test
+    return JSON.parse(this.test);
   }
 
   updateData(data) {
