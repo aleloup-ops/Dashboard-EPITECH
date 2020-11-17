@@ -29,8 +29,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.gridData = this.save.getData(JSON.parse(localStorage.getItem('user')).uid);
-    console.log(this.gridData)
+    this.gridData = this.save.getData(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
+      console.log(response);
+    })
+
+    // {{response | async}}
 
     this.options = {
       gridType: GridType.Fit,
