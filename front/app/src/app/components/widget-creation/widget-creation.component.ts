@@ -1,6 +1,7 @@
 import { Component, NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { $ } from 'protractor';
 import { AuthService } from '../../shared/services/auth.service';
 import { TwitchConnectService } from '../../shared/services/twitch-connect.service';
 

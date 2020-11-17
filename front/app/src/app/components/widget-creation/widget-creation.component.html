@@ -71,14 +71,14 @@
                         <img src="../../../assets/Twitter_Logo_Blue.png" alt="twitch_logo" style="width: 5%; padding-right: 1%;">
                         <h4>(Connect to Twitter service first !)</h4>
                     </div>
-                    <div class="row">
+                    <div class="row" id="twitter_widgets">
                         <button id="enable-twitter-connection" class="col-lg-2">
                             <p class="widgets">My Timeline</p>
                         </button>
                         <button id="enable-twitter-connection" class="col-lg-2 offset-lg-1">
                             <p class="widgets">Tweet</p>
                         </button>
-                        <button id="enable-twitter-connection" class="col-lg-2 offset-lg-1">
+                        <button id="enable-twitter-connection" (click)="twitchService.twitchRequest()" class="col-lg-2 offset-lg-1">
                             <p class="widgets">Research</p>
                         </button>
                     </div>
