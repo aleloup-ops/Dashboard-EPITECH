@@ -3,6 +3,7 @@ psycopg2-binary>=2.8
 djangorestframework
 firebase-admin
 requests==2.22.0
+django-cors-headers
 python-oauth2
 oauthlib
 oauth2
@@ -11,4 +12,3 @@ urllib3
 git+https://github.com/ozgur/python-firebase
 markdown
 django-filter
-django-cors-headers
