@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy }
 
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { SaveWidgetsService } from '../../shared/services/save-widgets.service'
 
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
@@ -21,11 +22,16 @@ interface Safe extends GridsterConfig {
 
 export class DashboardComponent implements OnInit {
 
-  constructor(public authService: AuthService, public router: Router, public ngZone: NgZone) { }
+  constructor(public authService: AuthService, public router: Router, public ngZone: NgZone, public save: SaveWidgetsService) { }
   options: Safe;
   dashboard: Array<GridsterItem>;
+  gridData;
 
   ngOnInit(): void {
+
+    this.gridData = JSON.parse(this.save.getData());
+    console.log(this.gridData)
+
     this.options = {
       gridType: GridType.Fit,
       compactType: CompactType.None,

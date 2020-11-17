@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { $ } from 'protractor';
 import { AuthService } from '../../shared/services/auth.service';
 import { TwitchConnectService } from '../../shared/services/twitch-connect.service';
+import { SaveWidgetsService } from '../../shared/services/save-widgets.service'
 
 @Component({
   selector: 'app-widget-creation',
@@ -12,8 +13,26 @@ import { TwitchConnectService } from '../../shared/services/twitch-connect.servi
 })
 export class WidgetCreationComponent implements OnInit {
 
-  constructor(public twitchService: TwitchConnectService, public authService: AuthService) { }
+  constructor(public twitchService: TwitchConnectService, public authService: AuthService, public save: SaveWidgetsService) { }
 
   ngOnInit(): void {
+    console.log(JSON.parse(localStorage.getItem('user')).uid);
+  }
+
+  output: JSON;
+  obj: any;
+
+  saveWidget(service, type, params) {
+    this.obj = {
+      'uid' : JSON.parse(localStorage.getItem('user')).uid,
+      'position' : [1, 1],
+      'params' : {'search' : params},
+      'service' : service,
+      'type' : type,
+      'id_widget' : '_' + Math.random().toString(36).substr(2, 9)
+    };
+    this.output = <JSON>this.obj;
+    console.log(this.output)
+    this.save.saveData(this.output);
   }
 }

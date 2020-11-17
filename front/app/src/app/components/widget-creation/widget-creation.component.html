@@ -55,7 +55,7 @@
                         <h4>(Connect to Twitch service first !)</h4>
                     </div>
                     <div class="row">
-                        <button id="enable-twitch-connection" class="col-lg-2">
+                        <button id="enable-twitch-connection" (click)="this.saveWidget('TWITCH', 'PROFILE', null)" class="col-lg-2">
                             <p class="widgets">My Profile</p>
                         </button>
                         <button id="enable-twitch-connection" class="col-lg-2 offset-lg-1">

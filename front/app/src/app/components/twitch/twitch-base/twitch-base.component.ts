@@ -23,7 +23,7 @@ export class TwitchBaseComponent implements OnInit {
   item: GridsterItem;
 
   ngOnInit(): void {
-    this.item = {cols: 1, rows: 1, y: 0, x: 0};
+    this.item = {cols: 2, rows: 2, y: 0, x: 0};
   }
 
 }
