@@ -17,7 +17,7 @@ export class SaveWidgetsService {
   test
 
   getData() {
-    this.http.get('http://localhost:8080/api/').subscribe(response => {
+    this.http.get<any>('http://localhost:8080/api/widget/').subscribe(response => {
       this.test = response;
       console.log(this.test);
     });
