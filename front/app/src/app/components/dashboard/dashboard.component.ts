@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
@@ -22,17 +22,18 @@ interface Safe extends GridsterConfig {
 
 export class DashboardComponent implements OnInit {
 
-  constructor(public authService: AuthService, public router: Router, public ngZone: NgZone, public save: SaveWidgetsService) { }
+  constructor(public authService: AuthService, public router: Router, public ngZone: NgZone, public save: SaveWidgetsService, private elementRef:ElementRef) { }
   options: Safe;
   dashboard: Array<GridsterItem>;
   gridData;
+  d1
 
   ngOnInit(): void {
 
     this.gridData = this.save.getData(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
       console.log(response);
+      this.gridData = response.widget;
     })
-
     // {{response | async}}
 
     this.options = {
@@ -76,7 +77,7 @@ export class DashboardComponent implements OnInit {
         enabled: true,
       },
       resizable: {
-        enabled: true,
+        enabled: false,
       },
       swap: false,
       pushItems: true,

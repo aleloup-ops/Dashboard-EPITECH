@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 import {CompactType, DisplayGrid, Draggable, GridsterConfig, GridsterItem, GridType, PushDirections, Resizable} from 'angular-gridster2';
@@ -18,12 +18,14 @@ interface Safe extends GridsterConfig {
 })
 
 export class TwitchBaseComponent implements OnInit {
+  @Input() position: Array<number>;
+  @Input() type: string;
 
   constructor(public twitchService: TwitchConnectService) { }
   item: GridsterItem;
 
   ngOnInit(): void {
-    this.item = {cols: 2, rows: 2, y: 0, x: 0};
+    this.item = {cols: 1, rows: 1, y: this.position[0], x: this.position[1]};
   }
 
 }

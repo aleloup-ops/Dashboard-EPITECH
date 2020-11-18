@@ -39,11 +39,10 @@
     </div>
 </div>
 
-<gridster [options]="options" style="background-color: white;">
-    <app-twitch-base></app-twitch-base>
-    <app-twitter-base></app-twitter-base>
-    <app-spotify-base></app-spotify-base>
-    <app-twitch-base></app-twitch-base>
-    <app-twitch-base></app-twitch-base>
-    <app-twitch-base></app-twitch-base>
+<gridster [options]="options" style="background-color: white;" class="dashboardGrid">
+    <div *ngFor="let item of this.gridData;">
+        <app-twitch-base *ngIf="item.service == 'TWITCH'" position="{{item.position}}" type="{{item.type}}"></app-twitch-base>
+        <app-twitter-base *ngIf="item.service == 'TWITTER'" position="{{item.position}}" type="{{item.type}}"></app-twitter-base>
+        <app-spotify-base *ngIf="item.service == 'SPOTIFY'" position="{{item.position}}" type="{{item.type}}"></app-spotify-base>
+    </div>
 </gridster>

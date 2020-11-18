@@ -6,7 +6,9 @@
                     <img id="twitch-logo" src="../../../../assets/TwitchGlitchWhite.png">
                 </div>
                 <div class="offset-lg-1">
-                    <app-twitch-follows></app-twitch-follows>
+                    <app-twitch-users *ngIf="this.type == 'PROFILE'"></app-twitch-users>
+                    <app-twitch-follows *ngIf="this.type == 'FOLLOWS'"></app-twitch-follows>
+                    <app-twitch-search *ngIf="this.type == 'SEARCH'"></app-twitch-search>
                 </div>
             </div>
         </div>
