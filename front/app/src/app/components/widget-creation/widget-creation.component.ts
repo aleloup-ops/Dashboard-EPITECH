@@ -16,7 +16,7 @@ export class WidgetCreationComponent implements OnInit {
   constructor(public twitchService: TwitchConnectService, public authService: AuthService, public save: SaveWidgetsService) { }
 
   ngOnInit(): void {
-    console.log(JSON.parse(localStorage.getItem('user')).uid);
+    console.log(JSON.parse(localStorage.getItem('user')));
   }
 
   output: JSON;

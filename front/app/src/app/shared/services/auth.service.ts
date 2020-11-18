@@ -71,10 +71,6 @@ export class AuthService {
     SignUp(email, password, username) {
         return this.afAuth.createUserWithEmailAndPassword(email, password)
             .then((result) => {
-                this.ngZone.run(() => {
-                    this.router.navigate(['sign-in'])
-                });
-
                 result.user.updateProfile({
                     displayName: username
                 })
@@ -84,6 +80,8 @@ export class AuthService {
                     'email': result.user.email,
                     'displayName': username,
                 })
+
+                this.router.navigate(['sign-in'])
 
             }).catch((err) => {
         })
@@ -149,6 +147,8 @@ export class AuthService {
      * link Twitter account to the current login account.
      */
     linkTwitterAuth () {
+        console.log(JSON.parse(localStorage.getItem('user')))
+
         this.linkAccount(new firebase.auth.TwitterAuthProvider());
     }
 
