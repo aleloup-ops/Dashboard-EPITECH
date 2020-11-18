@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
 
     this.gridData = this.save.getData(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
-      console.log(response);
       this.gridData = response.widget;
     })
     // {{response | async}}
