@@ -24,9 +24,22 @@ class verification():
             test = doc.to_dict()
             users_ref.update({"twitterToken": twitterToken})
             users_ref.update({"twitterSecretToken": twitterSecretToken})
+            return True
+        return False
+
+    def updateValueFirebase(uid, valueFirebase, value):
+        db = firestore.client()
+        users_ref = db.collection(u'users').document(uid)
+        doc = users_ref.get()
+
+        if doc.exists:
+            test = doc.to_dict()
+            users_ref.update({valueFirebase: twitterToken})
+            return True
+        return False
 
     def createVar(uid):
-        varToCreate = ['widgets', 'services', 'twitterToken', 'twitterSecretToken', 'twitchToken', 'spotifyToken', 'trelloToken']
+        varToCreate = ['twitterToken', 'twitterSecretToken', 'twitchToken', 'spotifyToken', 'trelloToken']
 
         db = firestore.client()
         users_ref = db.collection(u'users').document(uid)
@@ -41,3 +54,14 @@ class verification():
             if (uid):
                 return None
         return test
+
+    def getValues(uid):
+        db = firestore.client()
+        users_ref = db.collection(u'users').document(uid)
+        doc = users_ref.get()
+
+        if doc.exists:
+            test = doc.to_dict()
+        else:
+            if (uid):
+                return None

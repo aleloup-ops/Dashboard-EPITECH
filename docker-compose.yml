@@ -12,6 +12,7 @@ services:
     volumes:
       - ./server:/code
     command: python manage.py runserver 0.0.0.0:8080
+    env_file: ./api.env
     ports:
       - "8080:8080"
     networks:

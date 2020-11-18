@@ -12,3 +12,4 @@ git+https://github.com/ozgur/python-firebase
 markdown
 django-filter
 django-cors-headers
+requests_oauthlib

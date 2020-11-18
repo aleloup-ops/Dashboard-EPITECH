@@ -1,0 +1,12 @@
+from django.urls import path, re_path
+
+from . import views
+
+urlpatterns = [
+
+    path('', views.trelloApi.connection, name='login'),
+    path('myboards', views.trelloApi.myBoards, name='boards'),
+    path('getcards', views.trelloApi.getCards, name='login'),
+    path('getmembers', views.trelloApi.getMembers, name='members'),
+    re_path(r'^callback/q$', views.trelloApi.callback, name='callback'),
+]
