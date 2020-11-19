@@ -13,26 +13,46 @@ import { SaveWidgetsService } from '../../shared/services/save-widgets.service'
 })
 export class WidgetCreationComponent implements OnInit {
 
-  constructor(public twitchService: TwitchConnectService, public authService: AuthService, public save: SaveWidgetsService) { }
+    constructor(public twitchService: TwitchConnectService, public authService: AuthService, public save: SaveWidgetsService) { }
 
-  ngOnInit(): void {
-    console.log(JSON.parse(localStorage.getItem('user')));
-  }
+    ngOnInit(): void {
+        console.log(this.isConnectedTwitter);
+    }
 
-  output: JSON;
-  obj: any;
+    output: JSON;
+    obj: any;
 
-  saveWidget(service, type, params) {
-    this.obj = {
-      'uid' : JSON.parse(localStorage.getItem('user')).uid,
-      'position' : [1, 1],
-      'params' : {'search' : params},
-      'service' : service,
-      'type' : type,
-      'id_widget' : '_' + Math.random().toString(36).substr(2, 9)
-    };
-    this.output = <JSON>this.obj;
-    console.log(this.output)
-    this.save.saveData(this.output);
-  }
+    /**
+     * 
+     * @param service 
+     * @param type 
+     * @param params 
+     */
+    saveWidget(service, type, params) {
+        this.obj = {
+        'uid' : JSON.parse(localStorage.getItem('user')).uid,
+        'position' : [1, 1],
+        'params' : {'search' : params},
+        'service' : service,
+        'type' : type,
+        'id_widget' : '_' + Math.random().toString(36).substr(2, 9)
+        };
+        this.output = <JSON>this.obj;
+        console.log(this.output)
+        this.save.saveData(this.output);
+    }
+
+    /**
+     * 
+     */
+    get isConnectedTwitter () {
+        let data = JSON.parse(localStorage.getItem('user'));
+
+        for (const elem of data.providerData) {
+            if (elem.providerId == "twitter.com")
+                return true;
+        }
+
+        return false;
+    }
 }

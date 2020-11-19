@@ -17,13 +17,13 @@
                             </button>
                         </div>
                         <div class="col-lg-3">
-                            <button (click)="twitchService.twitchRequest()" id="enable-twitch-connection">
+                            <button onclick="window.location.href='http://localhost:8080/twitch/';" id="enable-twitch-connection">
                                     <img src="../../../assets/TwitchGlitchWhite.png" alt="twitch_logo" id="twitch-logo1">
                                     <img src="../../../assets/Twitch-Wordmark-White.png" alt="twitch_logo" id="twitch-logo2">
                             </button>
                         </div>
-                        <div class="col-lg-3">
-                            <button (click)="authService.GoogleAuth()" id="enable-twitter-connection">
+                        <div class="col-lg-3" *ngIf="this.isConnectedTwitter == false">
+                            <button (click)="authService.linkTwitterAuth()" id="enable-twitter-connection">
                                     <img src="../../../assets/Twitter_Logo_WhiteOnBlue.png" alt="twitter_logo" id="twitter-logo">
                             </button>
                         </div>
@@ -52,7 +52,9 @@
                 <div class="offset-lg-1">
                     <div class="row pt-3 pb-2 mb-3 border-bottom">
                         <img src="../../../assets/TwitchGlitchPurple.png" alt="twitch_logo" style="width: 4%; padding-right: 1%;">
-                        <h4>(Connect to Twitch service first !)</h4>
+                        <div>
+                            <h4>(Connect to Twitch service first !)</h4>
+                        </div>
                     </div>
                     <div class="row">
                         <button id="enable-twitch-connection" (click)="this.saveWidget('TWITCH', 'PROFILE', null)" class="col-lg-2">
@@ -69,7 +71,9 @@
                 <div class="offset-lg-1">
                     <div class="row pt-3 pb-2 mb-3 border-bottom">
                         <img src="../../../assets/Twitter_Logo_Blue.png" alt="twitch_logo" style="width: 5%; padding-right: 1%;">
-                        <h4>(Connect to Twitter service first !)</h4>
+                        <div *ngIf="this.isConnectedTwitter == false">
+                            <h4> (Connect to Twitter service first !)</h4>
+                        </div>
                     </div>
                     <div class="row" id="twitter_widgets">
                         <button id="enable-twitter-connection" (click)="this.saveWidget('TWITTER', 'TIMELINE', null)" class="col-lg-2">

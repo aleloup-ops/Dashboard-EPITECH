@@ -11,7 +11,7 @@ import { WidgetCreationComponent } from './components/widget-creation/widget-cre
 const routes: Routes = [
     { path: 'sign-in', component: SignInComponent },
     { path: 'register-user', component: SignUpComponent },
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'dashboard', component: DashboardComponent },
     { path: 'widgets', component: WidgetCreationComponent, canActivate: [AuthGuard] },
 ];
 
