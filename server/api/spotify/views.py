@@ -3,17 +3,23 @@ import requests
 from django.http import HttpResponse
 from django.shortcuts import redirect
 import oauth2 as oauth
-
-# Create your views here.
+import urllib3
+import urllib
+import os
+from ..firebase_auth.verification import verification
 
 
 SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 CLIENT_SIDE_URL = "http://localhost"
 PORT = 8080
 REDIRECT_URI = "{}:{}/spotify/callback/q".format(CLIENT_SIDE_URL, PORT)
+client_key = os.environ.get('twitterKeyClient')
+client_secret = os.environ.get('twitterKeyClientSecret')
+uid = ''
 
-def twitchTopGames(request):
-    x = redirect("https://accounts.spotify.com/en/authorize?client_id=8820e35d93994ec5841e459fc88e7147&response_type=code&redirect_uri=" + REDIRECT_URI + "&scope=user-read-private%20user-read-email")
+def login(request):
+    global uid
+    x = redirect("https://accounts.spotify.com/en/authorize?client_id=8820e35d93994ec5841e459fc88e7147&response_type=code&redirect_uri=" + REDIRECT_URI + "&scope=user-read-private%20user-read-email%20user-top-read")
     return (x)
 
 def callback(request):
@@ -22,10 +28,42 @@ def callback(request):
         "grant_type": "authorization_code",
         "code": str(auth_token),
         "redirect_uri": REDIRECT_URI,
-        'client_id': '8820e35d93994ec5841e459fc88e7147',
-        'client_secret': '0e9f86a26d8d43099412cf1b6405c49f',
+        'client_id': client_key,
+        'client_secret': client_secret,
     }
 
     post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload)
+    verification.updateValueFirebase(uid, "twitchToken", str(post_request.json().get("access_token")))
 
     return HttpResponse(post_request)
+
+def spotifyCall(request, url):
+    try:
+        uid = request.META.get("HTTP_AUTHORIZATION")
+        if (verification.userExist(uid) == False):
+            return HttpResponse("The user doesn't exist", status = 400)
+
+        userInfos = verification.getValues(uid)
+
+        y = json.dumps(userInfos)
+        resp = json.loads(y)
+
+        code_payload = {
+            "Authorization": "Bearer " + resp['spotifyToken'],
+        }
+
+        getInfo = requests.get(url, headers=head)
+
+        return HttpResponse(getInfo)
+
+    except:
+        return HttpResponse("No token provided", status = 401)
+
+def getProfile(request):
+    return spotifyCall(request, "https://api.spotify.com/v1/me")
+
+def getPlaylists(request):
+    return spotifyCall(request, "https://api.spotify.com/v1/me/playlists")
+
+def getTopTracks(requet):
+    return spotifyCall(request, "https://api.spotify.com/v1/me/top/tracks")

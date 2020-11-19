@@ -26,12 +26,14 @@ def initialize_client(request):
         auth_header = request.META.get("HTTP_AUTHORIZATION")
 
         test = verification.createVar(auth_header)
-        print (test)
-
+        
         if (test is None):
             return HttpResponse("The user doesn't exist", status = 400)
 
         y = json.dumps(test)
+        resp = json.loads(y)
+    
+        print(resp['displayName'])
 
         return HttpResponse(y)
 
@@ -59,26 +61,89 @@ def functionnalities(request):
         "services": [{
             "name": "twitter",
             "widgets": [{
-                "name": "profile",
-                "description": "Display profile from twitter",
+                "name": "post",
+                "description": "Post a tweet on twitter",
                 "params": [{
-                    "name": "city",
+                    "textTweet": "text",
                     "type": "string"
                 }],
-            }]
+            }, {
+                "name": "timeline",
+                "description": "Get your timeline on twitter",
+                "params": [{}]
+                },
+                {
+                "name": "search",
+                "description": "Search some tweets on twitter",
+                "params": [{
+                    "Hashtag": "researchTag",
+                    "type": "string"
+                }]
+                }],
         },
         {
-            "name": "rss",
+            "name": "spotify",
             "widgets": [{
-                "name": "article_list",
-                "description": "Displaying the list of the last articles",
+                "name": "tracks",
+                "description": "Get your top tracks on spotify",
+                "params": [{}],
+            }, {
+                "name": "profile",
+                "description": "Get your profile on spotify",
+                "params": [{}]
+                },
+                {
+                "name": "playlists",
+                "description": "Get your playlists on spotify",
+                "params": [{}]
+                }],
+        },
+        {
+            "name": "trello",
+            "widgets": [{
+                "name": "boards",
+                "description": "Get your boards on trello",
+                "params": [{}],
+            }, {
+                "name": "cards",
+                "description": "Get your cards of a board on trello",
                 "params": [{
-                    "name": "link",
+                    "Board": "id",
                     "type": "string"
-                }, {
-                    "name": "number",
-                    "type": "integer",
-                    }]
+                }]
+                },
+                {
+                "name": "members",
+                "description": "Get the members of a board on trello",
+                "params": [{
+                    "Board": "id",
+                    "type": "string"
+                }]
+                }],
+        },
+        {
+            "name": "twitch",
+            "widgets": [{
+                "name": "profile",
+                "description": "Get your profile on twitch",
+                "params": [{}],
+            }, {
+                "name": "subscribed",
+                "description": "Get your subscribed channels on twitch",
+                "params": [{}]
+                },
+                {
+                "name": "search",
+                "description": "Search info about a channel on twitch",
+                "params": [{
+                    "Channel": "name",
+                    "type": "string"
+                }]
+                },
+                {
+                "name": "Top Games",
+                "description": "Get Top Games on Twitch",
+                "params": [{}]
                 }],
         }],
         }
