@@ -22,5 +22,9 @@ urlpatterns = [
     path('twitch/', include('api.twitch.urls')),
     path('twitter/', include('api.twitter.urls')),
     path('trello/', include('api.trello.urls')),
+  
+    path('api/user/', include('api.user.urls')),
+    path('api/widget/', include('api.widget.urls')),
+
     path('admin/', admin.site.urls),
 ]

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import firebase from 'firebase/app'
 
+import { UserService } from './user.service'
+
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -22,7 +24,7 @@ export class AuthService {
      * @param router
      * @param ngZone
      */
-    constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public router: Router, public ngZone: NgZone) {
+    constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public router: Router, public ngZone: NgZone, private _userService: UserService) {
         this.afAuth.authState.subscribe(user => {
             if (user) {
                 this.userData = user;
@@ -49,9 +51,15 @@ export class AuthService {
                 this.ngZone.run(() => {
                     this.router.navigate(['dashboard'])
                 });
-                this.SetUserData(result.user);
+
+                this._userService.createOrUpdate({
+                    'uid': result.user.uid,
+                    'email': result.user.email,
+                    'displayName': result.user.displayName,
+                })
+
             }).catch((err) => {
-            })
+        })
     }
 
     /**
@@ -63,18 +71,21 @@ export class AuthService {
     SignUp(email, password, username) {
         return this.afAuth.createUserWithEmailAndPassword(email, password)
             .then((result) => {
-                this.ngZone.run(() => {
-                    this.router.navigate(['sign-in'])
-                });
 
                 result.user.updateProfile({
                     displayName: username
                 })
 
-                this.SetUserData(result.user);
+                this._userService.createOrUpdate({
+                    'uid': result.user.uid,
+                    'email': result.user.email,
+                    'displayName': username,
+                })
+
+                this.router.navigate(['sign-in'])
 
             }).catch((err) => {
-            })
+        })
     }
 
     /**
@@ -172,12 +183,19 @@ export class AuthService {
         return this.afAuth.signInWithPopup(provider)
             .then((result) => {
                 this.ngZone.run(() => {
+
                     this.router.navigate(['dashboard']);
                 })
 
-                this.SetUserData(result.user);
+                this._userService.createOrUpdate({
+                    'uid': result.user.uid,
+                    'email': result.user.email,
+                    'displayName': result.user.displayName,
+                })
+
             }).catch((error) => {
-            })
+                console.log(error);
+        })
     }
 
     /**
@@ -189,25 +207,6 @@ export class AuthService {
             localStorage.removeItem('user');
 
             this.router.navigate(['sign-in']);
-        })
-    }
-
-    /**
-     *
-     * @param user
-     * @constructor
-     */
-    SetUserData(user) {
-        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-
-        const userData: User = {
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-        }
-
-        return userRef.set(userData, {
-            merge: true
         })
     }
 }

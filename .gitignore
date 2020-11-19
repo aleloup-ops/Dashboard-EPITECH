@@ -5,3 +5,8 @@ __pycache__/
 server/api/__pycache__/
 server/api/twitter/__pycache__/
 server/api/apidashboard/__pycache__/
+server/api/firebase_auth/__pycache__/
+server/api/twitch/__pycache__/
+server/api/user/__pycache__/
+server/api/spotify/__pycache__/
+server/api/widget/__pycache__/
