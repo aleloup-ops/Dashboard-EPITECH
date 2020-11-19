@@ -26,6 +26,9 @@ export class DashboardComponent implements OnInit {
         public save: SaveWidgetsService, private elementRef: ElementRef) {
 
             setTimeout(() => {
+                this.gridData = this.save.getData(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
+                    this.gridData = response.widget;
+                })
                 console.log(JSON.parse(localStorage.getItem('user')));
     
                 this.showWaiting = false;
@@ -40,12 +43,6 @@ export class DashboardComponent implements OnInit {
     showWaiting: boolean = true;
 
     ngOnInit(): void {
-
-        if (this.showWaiting == false) {
-            this.gridData = this.save.getData(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
-                this.gridData = response.widget;
-            })
-        }
 
         this.options = {
             gridType: GridType.Fit,
