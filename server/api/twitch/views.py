@@ -14,8 +14,12 @@ client_key = os.environ.get('twitchKeyClient')
 client_secret = os.environ.get('twitchKeyClientSecret')
 uid = ''
 
-def login(request):
+def login(request, user_uid):
     global uid
+    uid = user_uid
+
+    print('UID ' + user_uid)
+
     x = redirect("https://id.twitch.tv/oauth2/authorize?client_id=8508od1jvg7mj4c1glehzmp24myczz&response_type=code&redirect_uri=" + REDIRECT_URI + "&scope=viewing_activity_read")
     return (x)
 
@@ -33,7 +37,7 @@ def callback(request):
     post_request = requests.post(TWITCH_TOKEN_URL, data=code_payload)
     verification.updateValueFirebase(uid, "twitchToken", str(post_request.json().get('access_token')))
 
-    return HttpResponse("ui")
+    return redirect("http://localhost:4200/widgets")
 
 def getProfile(request):
     try:

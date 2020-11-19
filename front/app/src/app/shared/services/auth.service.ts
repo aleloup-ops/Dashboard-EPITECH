@@ -183,15 +183,29 @@ export class AuthService {
         return this.afAuth.signInWithPopup(provider)
             .then((result) => {
                 this.ngZone.run(() => {
-
                     this.router.navigate(['dashboard']);
                 })
 
-                this._userService.createOrUpdate({
-                    'uid': result.user.uid,
-                    'email': result.user.email,
-                    'displayName': result.user.displayName,
-                })
+                if (result.credential.signInMethod === "twitter.com") {
+
+                    this._userService.createOrUpdate({
+                        'uid': result.user.uid,
+                        'email': result.user.email,
+                        'displayName': result.user.displayName,
+
+                        'credential': {
+                            'accessToken': result.credential['accessToken'],
+                            'secret': result.credential['secret'],
+                        }
+                    })
+
+                } else {
+                    this._userService.createOrUpdate({
+                        'uid': result.user.uid,
+                        'email': result.user.email,
+                        'displayName': result.user.displayName,
+                    })
+                }
 
             }).catch((error) => {
                 console.log(error);

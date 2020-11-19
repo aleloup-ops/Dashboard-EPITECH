@@ -11,12 +11,12 @@ import { SaveWidgetsService } from '../../shared/services/save-widgets.service'
   templateUrl: './widget-creation.component.html',
   styleUrls: ['./widget-creation.component.css']
 })
+
 export class WidgetCreationComponent implements OnInit {
 
     constructor(public twitchService: TwitchConnectService, public authService: AuthService, public save: SaveWidgetsService) { }
 
     ngOnInit(): void {
-        console.log(this.isConnectedTwitter);
     }
 
     output: JSON;
@@ -54,5 +54,11 @@ export class WidgetCreationComponent implements OnInit {
         }
 
         return false;
+    }
+
+    userUid () {
+        let data = JSON.parse(localStorage.getItem('user'));
+
+        return data.uid;
     }
 }

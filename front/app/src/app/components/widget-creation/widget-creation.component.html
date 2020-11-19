@@ -17,9 +17,11 @@
                             </button>
                         </div>
                         <div class="col-lg-3">
-                            <button onclick="window.location.href='http://localhost:8080/twitch/';" id="enable-twitch-connection">
+                            <button id="enable-twitch-connection">
+                                <a href="http://localhost:8080/twitch/{{ this.userUid() }}">
                                     <img src="../../../assets/TwitchGlitchWhite.png" alt="twitch_logo" id="twitch-logo1">
                                     <img src="../../../assets/Twitch-Wordmark-White.png" alt="twitch_logo" id="twitch-logo2">
+                                </a>
                             </button>
                         </div>
                         <div class="col-lg-3" *ngIf="this.isConnectedTwitter == false">
