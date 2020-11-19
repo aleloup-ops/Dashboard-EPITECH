@@ -85,3 +85,25 @@ def update_params(request, user_id, widget_id):
     doc_ref.set({ 'widget': firestore.ArrayUnion([new_data]) }, merge=True)
 
     return JsonResponse({'status': 'OK'}, status=status.HTTP_200_OK)
+
+
+"""
+
+"""
+@api_view(['DELETE'])
+def delete_widget(request, user_id, widget_id):
+
+    doc_ref = db.collection(u'widgets').document(user_id)
+
+    doc = doc_ref.get()
+
+    if not doc.exists:
+        return JsonResponse({ 'error': 'RESSOURCE NOT FOUND' }, status=status.HTTP_404_NOT_FOUND)
+
+    data = doc.to_dict()
+
+    for wid in data['widget']:
+        if wid['id_widget'] == widget_id:
+            doc_ref.update({'widget': firestore.ArrayRemove([wid]) })
+
+    return JsonResponse({'status': 'OK'}, status=status.HTTP_200_OK)
