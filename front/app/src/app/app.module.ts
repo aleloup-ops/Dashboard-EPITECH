@@ -27,8 +27,14 @@ import { TwitchFollowsComponent } from './components/twitch/twitch-follows/twitc
 import { TwitchSearchComponent } from './components/twitch/twitch-search/twitch-search.component';
 import { TwitchUsersComponent } from './components/twitch/twitch-users/twitch-users.component';
 import { TwitterBaseComponent } from './components/twitter/twitter-base/twitter-base.component';
-import { SpotifyBaseComponent } from './components/spotify-base/spotify-base.component';
 import { WidgetCreationComponent } from './components/widget-creation/widget-creation.component';
+import { TwitterTimelineComponent } from './components/twitter/twitter-timeline/twitter-timeline.component';
+import { TwitterProfileComponent } from './components/twitter/twitter-profile/twitter-profile.component';
+import { TwitterSearchComponent } from './components/twitter/twitter-search/twitter-search.component';
+import { SpotifyProfileComponent } from './components/spotify/spotify-profile/spotify-profile.component';
+import { SpotifyPlaylistsComponent } from './components/spotify/spotify-playlists/spotify-playlists.component';
+import { SpotifyFollowsComponent } from './components/spotify/spotify-follows/spotify-follows.component';
+import { SpotifyBaseComponent } from './components/spotify/spotify-base/spotify-base.component';
 
 
 @NgModule({
@@ -42,8 +48,14 @@ import { WidgetCreationComponent } from './components/widget-creation/widget-cre
     TwitchSearchComponent,
     TwitchUsersComponent,
     TwitterBaseComponent,
-    SpotifyBaseComponent,
-    WidgetCreationComponent
+    WidgetCreationComponent,
+    TwitterTimelineComponent,
+    TwitterProfileComponent,
+    TwitterSearchComponent,
+    SpotifyProfileComponent,
+    SpotifyPlaylistsComponent,
+    SpotifyFollowsComponent,
+    SpotifyBaseComponent
   ],
 
   imports: [

@@ -29,6 +29,9 @@ def index(request):
     doc_ref = db.collection(u'users').document(request.data['uid'])
     doc_ref.set(data, merge=True)
 
+    widget_ref = db.collection(u'widgets').document(request.data['uid'])
+    widget_ref.set({}, merge=True)
+
     return JsonResponse({'status': 'OK'}, status=status.HTTP_200_OK)
 
 """

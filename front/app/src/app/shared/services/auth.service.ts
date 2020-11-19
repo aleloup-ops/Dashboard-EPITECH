@@ -71,9 +71,6 @@ export class AuthService {
     SignUp(email, password, username) {
         return this.afAuth.createUserWithEmailAndPassword(email, password)
             .then((result) => {
-                this.ngZone.run(() => {
-                    this.router.navigate(['sign-in'])
-                });
 
                 result.user.updateProfile({
                     displayName: username
@@ -84,6 +81,8 @@ export class AuthService {
                     'email': result.user.email,
                     'displayName': username,
                 })
+
+                this.router.navigate(['sign-in'])
 
             }).catch((err) => {
         })
@@ -184,6 +183,7 @@ export class AuthService {
         return this.afAuth.signInWithPopup(provider)
             .then((result) => {
                 this.ngZone.run(() => {
+
                     this.router.navigate(['dashboard']);
                 })
 
@@ -194,6 +194,7 @@ export class AuthService {
                 })
 
             }).catch((error) => {
+                console.log(error);
         })
     }
 
