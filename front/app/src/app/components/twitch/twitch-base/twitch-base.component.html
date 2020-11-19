@@ -1,14 +1,17 @@
-<div>
+<div *ngIf="this.state == true">
     <gridster-item [item]="this.item" class="twitch-background">
         <div class="container-fluid">
             <div class="row" style="margin-top: 2%;">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <img id="twitch-logo" src="../../../../assets/TwitchGlitchWhite.png">
                 </div>
-                <div class="offset-lg-1">
+                <div class="offset-lg-1 col-lg-3">
                     <app-twitch-users *ngIf="this.type == 'PROFILE'"></app-twitch-users>
                     <app-twitch-follows *ngIf="this.type == 'FOLLOWS'"></app-twitch-follows>
                     <app-twitch-search *ngIf="this.type == 'SEARCH'"></app-twitch-search>
+                </div>
+                <div class="offset-lg-4">
+                    <mat-icon style="color: white;" (click)="this.deleteWidget($event)">clear</mat-icon>
                 </div>
             </div>
         </div>
