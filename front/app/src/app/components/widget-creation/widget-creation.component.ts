@@ -55,6 +55,14 @@ export class WidgetCreationComponent implements OnInit {
                 return true;
         }
 
+        let conn = JSON.parse(localStorage.getItem('connection'));
+
+        if (conn === null)
+            return false;
+
+        if (conn['twitter'] !== undefined && conn['twitter'] === true)
+            return true;
+
         return false;
     }
 
@@ -111,6 +119,18 @@ export class WidgetCreationComponent implements OnInit {
         localStorage.setItem('connection', JSON.stringify(data));
 
         window.location.href = url
+    }
+
+    loginTwitter () {
+        this.authService.linkTwitterAuth();
+
+        let data = JSON.parse(localStorage.getItem('connection'));
+
+        if (data === null)
+            data = {}
+
+        data['twitter'] = true;
+        localStorage.setItem('connection', JSON.stringify(data));
     }
 
     /**

@@ -25,7 +25,7 @@ def index(request):
         'secret': '',
     }
 
-    if request.data['credential']:
+    if 'credential' in request.data:
         credential['accessToken'] = request.data['credential']['accessToken']
         credential['secret'] = request.data['credential']['secret']
 

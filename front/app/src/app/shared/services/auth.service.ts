@@ -165,13 +165,33 @@ export class AuthService {
     linkAccount (provider) {
         this.afAuth.authState.subscribe(user => {
             if (user) {
-                user.linkWithPopup(provider).then(function (result) {
+                user.linkWithPopup(provider).then(result => {
+
+                    this.udpateUser(result);
 
                 }).catch (err => {
-                    window.alert(err);
+                    console.log('ERR = ', err);
                 })
             }
         })
+    }
+
+    udpateUser (result) {
+        let data = JSON.parse(localStorage.getItem('user'))
+
+        if (result.credential.signInMethod === "twitter.com") {
+
+            this._userService.createOrUpdate({
+                'uid': data.uid,
+                'email': data.email,
+                'displayName': data.displayName,
+
+                'credential': {
+                    'accessToken': result.credential['accessToken'],
+                    'secret': result.credential['secret'],
+                }
+            })
+        }
     }
 
     /**
@@ -200,6 +220,7 @@ export class AuthService {
                     })
 
                 } else {
+
                     this._userService.createOrUpdate({
                         'uid': result.user.uid,
                         'email': result.user.email,

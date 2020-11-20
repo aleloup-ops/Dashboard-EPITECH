@@ -23,7 +23,7 @@
                             </button>
                         </div>
                         <div class="col-lg-3" *ngIf="this.isConnectedTwitter == false">
-                            <button (click)="authService.linkTwitterAuth()" id="enable-twitter-connection">
+                            <button (click)="this.loginTwitter()" id="enable-twitter-connection">
                                     <img src="../../../assets/Twitter_Logo_WhiteOnBlue.png" alt="twitter_logo" id="twitter-logo">
                             </button>
                         </div>
