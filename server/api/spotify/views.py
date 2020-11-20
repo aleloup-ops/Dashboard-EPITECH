@@ -13,17 +13,21 @@ SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 CLIENT_SIDE_URL = "http://localhost"
 PORT = 8080
 REDIRECT_URI = "{}:{}/spotify/callback/q".format(CLIENT_SIDE_URL, PORT)
-client_key = os.environ.get('twitterKeyClient')
-client_secret = os.environ.get('twitterKeyClientSecret')
+client_key = os.environ.get('spotifyKeyClient')
+client_secret = os.environ.get('spotifyKeyClientSecret')
 uid = ''
 
-def login(request):
+def login(request, user_uid):
     global uid
+
+    uid = user_uid
+
     x = redirect("https://accounts.spotify.com/en/authorize?client_id=8820e35d93994ec5841e459fc88e7147&response_type=code&redirect_uri=" + REDIRECT_URI + "&scope=user-read-private%20user-read-email%20user-top-read")
     return (x)
 
 def callback(request):
     auth_token = request.GET.get('code')
+
     code_payload = {
         "grant_type": "authorization_code",
         "code": str(auth_token),
@@ -32,10 +36,12 @@ def callback(request):
         'client_secret': client_secret,
     }
 
-    post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload)
-    verification.updateValueFirebase(uid, "twitchToken", str(post_request.json().get("access_token")))
+    print(auth_token)
 
-    return HttpResponse(post_request)
+    post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload)
+    verification.updateValueFirebase(uid, "spotifyToken", str(post_request.json().get("access_token")))
+
+    return redirect('http://localhost:4200/widgets')
 
 def spotifyCall(request, url):
     try:

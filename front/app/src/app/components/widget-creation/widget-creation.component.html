@@ -11,17 +11,15 @@
                         <h2 class="h2">Connect to a service</h2>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3">
-                            <button (click)="twitchService.spotifyRequest()" id="enable-spotify-connection">
+                        <div class="col-lg-3" *ngIf="this.isConnectedSpotify == false">
+                            <button (click)="this.loginSpotify()" id="enable-spotify-connection">
                                 <img src="../../../assets/Spotify_Logo_RGB_White.png" alt="spotify_logo" id="spotify-logo">
                             </button>
                         </div>
-                        <div class="col-lg-3">
-                            <button id="enable-twitch-connection">
-                                <a href="http://localhost:8080/twitch/{{ this.userUid() }}">
-                                    <img src="../../../assets/TwitchGlitchWhite.png" alt="twitch_logo" id="twitch-logo1">
-                                    <img src="../../../assets/Twitch-Wordmark-White.png" alt="twitch_logo" id="twitch-logo2">
-                                </a>
+                        <div class="col-lg-3" *ngIf="this.isConnectedTwitch == false">
+                            <button id="enable-twitch-connection" (click)="this.loginTwitch()">
+                                <img src="../../../assets/TwitchGlitchWhite.png" alt="twitch_logo" id="twitch-logo1">
+                                <img src="../../../assets/Twitch-Wordmark-White.png" alt="twitch_logo" id="twitch-logo2">
                             </button>
                         </div>
                         <div class="col-lg-3" *ngIf="this.isConnectedTwitter == false">
@@ -37,7 +35,9 @@
                 <div class="offset-lg-1">
                     <div class="row pt-3 pb-2 mb-3 border-bottom">
                         <img src="../../../assets/Spotify_Logo_RGB_Green.png" alt="spotify_logo" style="width: 10%;">
-                        <h4>(Connect to Spotify service first !)</h4>
+                        <div *ngIf="this.isConnectedSpotify == false">
+                            <h4>(Connect to Spotify service first !)</h4>
+                        </div>
                     </div>
                     <div class="row">
                         <button id="enable-spotify-connection" (click)="this.saveWidget('SPOTIFY', 'PROFILE', null)" class="col-lg-2">
@@ -54,7 +54,7 @@
                 <div class="offset-lg-1">
                     <div class="row pt-3 pb-2 mb-3 border-bottom">
                         <img src="../../../assets/TwitchGlitchPurple.png" alt="twitch_logo" style="width: 4%; padding-right: 1%;">
-                        <div>
+                        <div  *ngIf="this.isConnectedTwitch == false">
                             <h4>(Connect to Twitch service first !)</h4>
                         </div>
                     </div>

@@ -29,8 +29,7 @@ export class DashboardComponent implements OnInit {
                 this.gridData = this.save.getData(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
                     this.gridData = response.widget;
                 })
-                console.log(JSON.parse(localStorage.getItem('user')));
-    
+
                 this.showWaiting = false;
             }, 4000);
 
