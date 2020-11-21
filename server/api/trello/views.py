@@ -16,11 +16,8 @@ import urllib3
 import urllib
 import os
 from requests_oauthlib import OAuth1Session
-
 from ..firebase_auth.verification import verification
-# Create your views here.
 
- #https://lewiskori.com/blog/user-registration-and-authorization-on-a-django-api-with-djoser-and-json-web-tokens/
 
 client_key = os.environ.get('trelloKeyClient')
 client_secret = os.environ.get('trelloKeyClientSecret')
@@ -46,7 +43,6 @@ class trelloApi():
         consumer = oauth.Consumer(client_key, client_secret)
         client = oauth.Client(consumer)
 
-        #GET FIRST OAUTH_TOKEN TO ACCESS API
         session = OAuth1Session(client_key=client_key, client_secret=client_secret)
         response = session.fetch_request_token(request_token_url)
         resource_owner_key, resource_owner_secret = response.get('oauth_token'), response.get('oauth_token_secret')
@@ -68,26 +64,63 @@ class trelloApi():
                             verifier=oauth_verifier)
         access_token = session.fetch_access_token(access_token_url)
 
-        #get board
-        post_request = requests.get("https://api.trello.com/1/members/me/boards?key=" + client_key + "&token=" + access_token['oauth_token'])
-
-
-        # get cards
-        post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/cards?key=" + client_key + "&token=" + access_token['oauth_token'])
-
-
-        #get members of a board 
-        post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/members?key=" + client_key + "&token=" + access_token['oauth_token'])
+        # #get board
+        # post_request = requests.get("https://api.trello.com/1/members/me/boards?key=" + client_key + "&token=" + access_token['oauth_token'])
+        # # get cards
+        # post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/cards?key=" + client_key + "&token=" + access_token['oauth_token'])
+        # #get members of a board 
+        # post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/members?key=" + client_key + "&token=" + access_token['oauth_token'])
         
-        return HttpResponse(post_request)
+        return HttpResponse("connected")
 
     def myBoards(request):
-        pass
+        try:
+            uid = request.META.get("HTTP_AUTHORIZATION")
+            if (verification.userExist(uid) == False):
+                return HttpResponse("The user doesn't exist", status = 400)
+            
+            userInfos = verification.getValues(uid)
+            y = json.dumps(userInfos)
+            resp = json.loads(y)
+
+            post_request = requests.get("https://api.trello.com/1/members/me/boards?key=" + client_key + "&token=" + resp['trelloToken'])
+
+            return HttpResponse(post_request)
+
+        except:
+            return HttpResponse("No token provided", status = 401)
 
     def getCards(request):
-        pass
+        try:
+            uid = request.META.get("HTTP_AUTHORIZATION")
+            if (verification.userExist(uid) == False):
+                return HttpResponse("The user doesn't exist", status = 400)
+            
+            userInfos = verification.getValues(uid)
+            y = json.dumps(userInfos)
+            resp = json.loads(y)
 
-    def getMembers(reques):
-        pass
+            post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/cards?key=" + client_key + "&token=" + resp['trelloToken'])
 
 
+            return HttpResponse(post_request)
+
+        except:
+            return HttpResponse("No token provided", status = 401)
+
+    def getMembers(request):
+        try:
+            uid = request.META.get("HTTP_AUTHORIZATION")
+            if (verification.userExist(uid) == False):
+                return HttpResponse("The user doesn't exist", status = 400)
+            
+            userInfos = verification.getValues(uid)
+            y = json.dumps(userInfos)
+            resp = json.loads(y)
+
+            post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/members?key=" + client_key + "&token=" + resp['trelloToken'])
+
+            return HttpResponse(post_request)
+
+        except:
+            return HttpResponse("No token provided", status = 401)

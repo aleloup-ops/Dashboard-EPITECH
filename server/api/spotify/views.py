@@ -6,6 +6,7 @@ import oauth2 as oauth
 import urllib3
 import urllib
 import os
+import json
 from ..firebase_auth.verification import verification
 
 
@@ -23,6 +24,7 @@ def login(request, user_uid):
     uid = user_uid
 
     x = redirect("https://accounts.spotify.com/en/authorize?client_id=8820e35d93994ec5841e459fc88e7147&response_type=code&redirect_uri=" + REDIRECT_URI + "&scope=user-read-private%20user-read-email%20user-top-read")
+    #return flatpage(request, "/home/")
     return (x)
 
 def callback(request):
@@ -41,7 +43,7 @@ def callback(request):
     post_request = requests.post(SPOTIFY_TOKEN_URL, data=code_payload)
     verification.updateValueFirebase(uid, "spotifyToken", str(post_request.json().get("access_token")))
 
-    return redirect('http://localhost:4200/widgets')
+    return redirect('http://localhost:4200/widgets/')
 
 def spotifyCall(request, url):
     try:
@@ -66,7 +68,30 @@ def spotifyCall(request, url):
         return HttpResponse("No token provided", status = 401)
 
 def getProfile(request):
-    return spotifyCall(request, "https://api.spotify.com/v1/me")
+    try:
+        uid = request.META.get("HTTP_AUTHORIZATION")
+        if (verification.userExist(uid) == False):
+            return HttpResponse("The user doesn't exist", status = 400)
+
+        userInfos = verification.getValues(uid)
+
+        print(uid)
+
+        y = json.dumps(userInfos)
+        #print(y)
+        resp = json.loads(y)
+
+        code_payload = {
+            "Authorization": "Bearer " + resp['spotifyToken'],
+        }
+
+        getInfo = requests.get("https://api.spotify.com/v1/me", headers=code_payload)
+
+        return HttpResponse(getInfo)
+
+    except:
+        return HttpResponse("No token provided", status = 401)
+    #return spotifyCall(request, "https://api.spotify.com/v1/me")
 
 def getPlaylists(request):
     return spotifyCall(request, "https://api.spotify.com/v1/me/playlists")
