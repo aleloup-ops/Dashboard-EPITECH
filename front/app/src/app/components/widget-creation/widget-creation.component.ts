@@ -99,6 +99,21 @@ export class WidgetCreationComponent implements OnInit {
     /**
      * 
      */
+    get isConnectedTrello () {
+        let data = JSON.parse(localStorage.getItem('connection'));
+
+        if (data === null)
+            return false;
+
+        if (data['trello'] !== undefined && data['trello'] === true)
+            return true;
+
+        return false;
+    }
+
+    /**
+     * 
+     */
     userUid () {
         let data = JSON.parse(localStorage.getItem('user'));
 
@@ -119,6 +134,22 @@ export class WidgetCreationComponent implements OnInit {
         localStorage.setItem('connection', JSON.stringify(data));
 
         window.location.href = url
+    }
+
+    /**
+     * 
+     */
+    loginTrello () {
+        let url = "http://localhost:8080/trello/" + this.userUid() + "/login";
+        let data = JSON.parse(localStorage.getItem('connection'));
+
+        if (data === null)
+            data = {}
+
+        data['trello'] = true;
+        localStorage.setItem('connection', JSON.stringify(data));
+
+        window.location.href = url;
     }
 
     /**

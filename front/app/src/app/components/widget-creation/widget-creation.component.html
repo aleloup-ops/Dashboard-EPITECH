@@ -27,8 +27,8 @@
                                     <img src="../../../assets/Twitter_Logo_WhiteOnBlue.png" alt="twitter_logo" id="twitter-logo">
                             </button>
                         </div>
-                        <div class="col-lg-3" *ngIf="this.isConnectedTwitter == false">
-                            <button id="enable-trello-connection">
+                        <div class="col-lg-3" *ngIf="this.isConnectedTrello == false">
+                            <button (click)="this.loginTrello()" id="enable-trello-connection">
                                     <img src="../../../assets/trello.png" alt="trello-logo" id="trello-logo">
                             </button>
                         </div>
@@ -97,7 +97,7 @@
                 <div class="offset-lg-1">
                     <div class="row pt-3 pb-2 mb-3 border-bottom">
                         <img src="../../../assets/trello.png" alt="trello-logo" style="width: 15%; padding-right: 1%;">
-                        <div *ngIf="this.isConnectedTwitter == false">
+                        <div *ngIf="this.isConnectedTrello == false">
                             <h4> (Connect to Trello service first !)</h4>
                         </div>
                     </div>

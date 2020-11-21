@@ -36,9 +36,11 @@ resource_owner_key = ''
 resource_owner_secret = ''
 
 class trelloApi():
-    def connection(request):
+    def connection(request, user_uid):
         global uid
         global resource_owner_key, resource_owner_secret
+
+        uid = user_uid
 
         consumer = oauth.Consumer(client_key, client_secret)
         client = oauth.Client(consumer)
@@ -49,7 +51,7 @@ class trelloApi():
 
         x = redirect("https://trello.com/1/OAuthAuthorizeToken?oauth_token=" + resource_owner_key + "&scope=read,write,account" + "&return_url=" + REDIRECT_URI)
         return x
-   
+
     def callback(request):
         oauth_token = request.GET.get('oauth_token')
         oauth_verifier = request.GET.get('oauth_verifier')
@@ -64,14 +66,16 @@ class trelloApi():
                             verifier=oauth_verifier)
         access_token = session.fetch_access_token(access_token_url)
 
+        verification.updateValueFirebase(uid, "trelloToken", str(access_token['oauth_token']))
+
         # #get board
         # post_request = requests.get("https://api.trello.com/1/members/me/boards?key=" + client_key + "&token=" + access_token['oauth_token'])
         # # get cards
         # post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/cards?key=" + client_key + "&token=" + access_token['oauth_token'])
         # #get members of a board 
         # post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/members?key=" + client_key + "&token=" + access_token['oauth_token'])
-        
-        return HttpResponse("connected")
+
+        return redirect('http://localhost:4200/widgets')
 
     def myBoards(request):
         try:

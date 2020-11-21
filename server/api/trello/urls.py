@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
 
-    path('', views.trelloApi.connection, name='login'),
+    path('<str:user_uid>/login', views.trelloApi.connection, name='login'),
     path('myboards', views.trelloApi.myBoards, name='boards'),
     path('getcards', views.trelloApi.getCards, name='login'),
     path('getmembers', views.trelloApi.getMembers, name='members'),
