@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
         public save: SaveWidgetsService, private elementRef: ElementRef) {
 
             setTimeout(() => {
-                this.gridData = this.save.getData(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
+                this.save.getData(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
                     this.gridData = response.widget;
                 })
 
