@@ -67,29 +67,29 @@ def spotifyCall(request, url):
         return HttpResponse("No token provided", status = 401)
 
 def getProfile(request):
-    #try:
-    uid = request.META.get("HTTP_AUTHORIZATION")
-    if (verification.userExist(uid) == False):
-        return HttpResponse("The user doesn't exist", status = 400)
+    try:
+        uid = request.META.get("HTTP_AUTHORIZATION")
+        if (verification.userExist(uid) == False):
+            return HttpResponse("The user doesn't exist", status = 400)
 
-    userInfos = verification.getValues(uid)
+        userInfos = verification.getValues(uid)
 
-    print(uid)
+        print(uid)
 
-    y = json.dumps(userInfos)
-    #print(y)
-    resp = json.loads(y)
+        y = json.dumps(userInfos)
+        #print(y)
+        resp = json.loads(y)
 
-    code_payload = {
-        "Authorization": "Bearer " + resp['spotifyToken'],
-    }
+        code_payload = {
+            "Authorization": "Bearer " + resp['spotifyToken'],
+        }
 
-    getInfo = requests.get("https://api.spotify.com/v1/me", headers=code_payload)
+        getInfo = requests.get("https://api.spotify.com/v1/me", headers=code_payload, follow=False)
 
-    return HttpResponse(getInfo)
+        return HttpResponse(getInfo)
 
-    #except:
-        #return HttpResponse("No token provided", status = 401)
+    except:
+        return HttpResponse("No token provided", status = 401)
     #return spotifyCall(request, "https://api.spotify.com/v1/me")
 
 def getPlaylists(request):
