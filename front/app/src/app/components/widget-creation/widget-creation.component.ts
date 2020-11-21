@@ -109,7 +109,7 @@ export class WidgetCreationComponent implements OnInit {
      * 
      */
     loginTwitch () {
-        let url = "http://localhost:8080/twitch/" + this.userUid();
+        let url = "http://localhost:8080/twitch/" + this.userUid() + "/login";
         let data = JSON.parse(localStorage.getItem('connection'));
 
         if (data === null)
@@ -121,6 +121,9 @@ export class WidgetCreationComponent implements OnInit {
         window.location.href = url
     }
 
+    /**
+     * 
+     */
     loginTwitter () {
         this.authService.linkTwitterAuth();
 
@@ -137,7 +140,7 @@ export class WidgetCreationComponent implements OnInit {
      * 
      */
     loginSpotify () {
-        let url = "http://localhost:8080/spotify/" + this.userUid();
+        let url = "http://localhost:8080/spotify/" + this.userUid() + "/login";
         let data = JSON.parse(localStorage.getItem('connection'));
 
         if (data === null)

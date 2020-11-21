@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     path('topgames', views.twitchTopGames, name='topgames'),
-    path('<str:user_uid>', views.login, name='login'),
+    path('<str:user_uid>/login', views.login, name='login'),
     path('search', views.searchChannel, name='search'),
     path('getfollowers', views.getFollowers, name='followers'),
     path('getprofile', views.getProfile, name='followers'),
