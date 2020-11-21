@@ -11,12 +11,14 @@ import { SaveWidgetsService } from '../../shared/services/save-widgets.service'
   templateUrl: './widget-creation.component.html',
   styleUrls: ['./widget-creation.component.css']
 })
+
 export class WidgetCreationComponent implements OnInit {
 
     constructor(public twitchService: TwitchConnectService, public authService: AuthService, public save: SaveWidgetsService) { }
 
     ngOnInit(): void {
-        console.log(this.isConnectedTwitter);
+        console.log(JSON.parse(localStorage.getItem('user')));
+        console.log(JSON.parse(localStorage.getItem('connection')));
     }
 
     output: JSON;
@@ -53,6 +55,97 @@ export class WidgetCreationComponent implements OnInit {
                 return true;
         }
 
+        let conn = JSON.parse(localStorage.getItem('connection'));
+
+        if (conn === null)
+            return false;
+
+        if (conn['twitter'] !== undefined && conn['twitter'] === true)
+            return true;
+
         return false;
+    }
+
+    /**
+     * 
+     */
+    get isConnectedTwitch () {
+        let data = JSON.parse(localStorage.getItem('connection'));
+
+        if (data === null)
+            return false;
+
+        if (data['twitch'] !== undefined && data['twitch'] === true)
+            return true;
+
+        return false;
+    }
+
+    /**
+     * 
+     */
+    get isConnectedSpotify () {
+        let data = JSON.parse(localStorage.getItem('connection'));
+
+        if (data === null)
+            return false;
+
+        if (data['spotify'] !== undefined && data['spotify'] === true)
+            return true;
+
+        return false;
+    }
+
+    /**
+     * 
+     */
+    userUid () {
+        let data = JSON.parse(localStorage.getItem('user'));
+
+        return data.uid;
+    }
+
+    /**
+     * 
+     */
+    loginTwitch () {
+        let url = "http://localhost:8080/twitch/" + this.userUid();
+        let data = JSON.parse(localStorage.getItem('connection'));
+
+        if (data === null)
+            data = {}
+
+        data['twitch'] = true;
+        localStorage.setItem('connection', JSON.stringify(data));
+
+        window.location.href = url
+    }
+
+    loginTwitter () {
+        this.authService.linkTwitterAuth();
+
+        let data = JSON.parse(localStorage.getItem('connection'));
+
+        if (data === null)
+            data = {}
+
+        data['twitter'] = true;
+        localStorage.setItem('connection', JSON.stringify(data));
+    }
+
+    /**
+     * 
+     */
+    loginSpotify () {
+        let url = "http://localhost:8080/spotify/" + this.userUid();
+        let data = JSON.parse(localStorage.getItem('connection'));
+
+        if (data === null)
+            data = {}
+
+        data['spotify'] = true;
+        localStorage.setItem('connection', JSON.stringify(data));
+
+        window.location.href = url
     }
 }

@@ -14,18 +14,6 @@ class verification():
         else:
             return False
 
-    def fillTwitterFirebase(uid, twitterToken, twitterSecretToken):
-        db = firestore.client()
-        users_ref = db.collection(u'users').document(uid)
-        doc = users_ref.get()
-
-        if doc.exists:
-            test = doc.to_dict()
-            users_ref.update({"twitterToken": twitterToken})
-            users_ref.update({"twitterSecretToken": twitterSecretToken})
-            return True
-        return False
-
     def updateValueFirebase(uid, valueFirebase, value):
         db = firestore.client()
         users_ref = db.collection(u'users').document(uid)
@@ -33,7 +21,7 @@ class verification():
 
         if doc.exists:
             test = doc.to_dict()
-            users_ref.update({valueFirebase: twitterToken})
+            users_ref.update({valueFirebase: value})
             return True
         return False
 

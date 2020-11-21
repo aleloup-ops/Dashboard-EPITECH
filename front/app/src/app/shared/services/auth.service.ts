@@ -165,13 +165,33 @@ export class AuthService {
     linkAccount (provider) {
         this.afAuth.authState.subscribe(user => {
             if (user) {
-                user.linkWithPopup(provider).then(function (result) {
+                user.linkWithPopup(provider).then(result => {
+
+                    this.udpateUser(result);
 
                 }).catch (err => {
-                    window.alert(err);
+                    console.log('ERR = ', err);
                 })
             }
         })
+    }
+
+    udpateUser (result) {
+        let data = JSON.parse(localStorage.getItem('user'))
+
+        if (result.credential.signInMethod === "twitter.com") {
+
+            this._userService.createOrUpdate({
+                'uid': data.uid,
+                'email': data.email,
+                'displayName': data.displayName,
+
+                'credential': {
+                    'accessToken': result.credential['accessToken'],
+                    'secret': result.credential['secret'],
+                }
+            })
+        }
     }
 
     /**
@@ -183,15 +203,30 @@ export class AuthService {
         return this.afAuth.signInWithPopup(provider)
             .then((result) => {
                 this.ngZone.run(() => {
-
                     this.router.navigate(['dashboard']);
                 })
 
-                this._userService.createOrUpdate({
-                    'uid': result.user.uid,
-                    'email': result.user.email,
-                    'displayName': result.user.displayName,
-                })
+                if (result.credential.signInMethod === "twitter.com") {
+
+                    this._userService.createOrUpdate({
+                        'uid': result.user.uid,
+                        'email': result.user.email,
+                        'displayName': result.user.displayName,
+
+                        'credential': {
+                            'accessToken': result.credential['accessToken'],
+                            'secret': result.credential['secret'],
+                        }
+                    })
+
+                } else {
+
+                    this._userService.createOrUpdate({
+                        'uid': result.user.uid,
+                        'email': result.user.email,
+                        'displayName': result.user.displayName,
+                    })
+                }
 
             }).catch((error) => {
                 console.log(error);
@@ -205,6 +240,7 @@ export class AuthService {
     SignOut () {
         return this.afAuth.signOut().then(() => {
             localStorage.removeItem('user');
+            localStorage.removeItem('connection');
 
             this.router.navigate(['sign-in']);
         })

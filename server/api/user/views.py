@@ -20,10 +20,24 @@ db = firestore.client()
 @api_view(['POST'])
 def index(request):
 
+    credential = {
+        'accessToken': '',
+        'secret': '',
+    }
+
+    if 'credential' in request.data:
+        credential['accessToken'] = request.data['credential']['accessToken']
+        credential['secret'] = request.data['credential']['secret']
+
     data = {
         u'uid': request.data['uid'],
         u'email': request.data['email'],
-        u'displayName': request.data['displayName']
+        u'displayName': request.data['displayName'],
+        u'trelloToken': "",
+        u'twitchToken': "",
+        u'spotifyToken': "",
+        u'twitterToken': credential['accessToken'],
+        u'twitterSecretToken': credential['secret']
     }
 
     doc_ref = db.collection(u'users').document(request.data['uid'])
