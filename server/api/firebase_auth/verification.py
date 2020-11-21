@@ -4,7 +4,6 @@ from firebase_admin import db
 from firebase_admin import firestore
 
 class verification():
-
     def userExist(uid):
         db = firestore.client()
         users_ref = db.collection(u'users').document(uid)
@@ -65,3 +64,4 @@ class verification():
         else:
             if (uid):
                 return None
+        return test

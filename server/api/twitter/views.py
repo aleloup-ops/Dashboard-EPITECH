@@ -82,7 +82,7 @@ class twitterApi():
     def postOnTwitter():
         try:
             uid = request.META.get("HTTP_AUTHORIZATION")
-            if (verification.userExist(auth_header) == False):
+            if (verification.userExist(uid) == False):
                 return HttpResponse("The user doesn't exist", status = 400)
             
             userInfos = verification.getValues(uid)
@@ -105,7 +105,7 @@ class twitterApi():
     def myProfile():
         try:
             uid = request.META.get("HTTP_AUTHORIZATION")
-            if (verification.userExist(auth_header) == False):
+            if (verification.userExist(uid) == False):
                 return HttpResponse("The user doesn't exist", status = 400)
             
             userInfos = verification.getValues(uid)
@@ -127,7 +127,7 @@ class twitterApi():
     def searchTweet():
         try:
             uid = request.META.get("HTTP_AUTHORIZATION")
-            if (verification.userExist(auth_header) == False):
+            if (verification.userExist(uid) == False):
                 return HttpResponse("The user doesn't exist", status = 400)
             
             userInfos = verification.getValues(uid)
