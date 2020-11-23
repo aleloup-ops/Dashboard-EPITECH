@@ -1,3 +1,14 @@
-<div>
-    <h1 id="widget-name">Playlists</h1>
+<div class="row justify-content-center">
+    <h1 id="widget-name">My Playlists</h1>
+</div>
+<div *ngFor="let item of this.userPlaylists; let index = index;" class="playlists">
+    <div class="row">
+        <div class="col-lg-3">
+            <a target="_blank" href="{{item.external_urls.spotify}}"><img class="playlist_cover" src="{{item.images[0].url}}"></a>
+        </div>
+        <div class="offset-lg-2 col-lg-7">
+            <h1>{{item.name}} ({{item.tracks.total}} tracks)</h1>
+            <h2>{{item.description}}</h2>
+        </div>
+    </div>
 </div>

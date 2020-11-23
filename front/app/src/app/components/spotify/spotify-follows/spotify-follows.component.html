@@ -1,3 +1,18 @@
-<div>
-    <h1 id="widget-name">Profile</h1>
+<div class="row justify-content-center">
+    <h1 id="widget-name">My Top Tracks</h1>
+</div>
+<div *ngFor="let item of this.userTracks; let index = index;" class="tracks">
+    <div class="row">
+        <div class="col-lg-1">
+            <h1>{{index + 1}}</h1>
+        </div>
+        <div class="col-lg-2">
+            <a target="_blank" href="{{item.album.external_urls.spotify}}"><img class="playlist_cover" src="{{item.album.images[0].url}}"></a>
+        </div>
+        <div class="col-lg-7">
+            <h2>{{item.name}} ({{item.artists[0].name}})</h2>
+            <h2>{{item.description}}</h2>
+        </div>
+    </div>
+
 </div>

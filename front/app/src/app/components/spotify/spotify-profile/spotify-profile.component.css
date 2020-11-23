@@ -2,6 +2,8 @@ div {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: white;
     text-decoration: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 a {
@@ -11,6 +13,10 @@ a {
 #user_logo {
     border: 3px solid white;
     border-radius: 300px;
-    width: 50%;
-    height: 100%;
+    width: 20%;
+    height: auto;
+}
+
+h1 {
+    font-size: xx-large;
 }

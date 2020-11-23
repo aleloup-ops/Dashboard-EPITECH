@@ -1,18 +1,20 @@
 <div *ngIf="this.state == true" >
     <gridster-item [item]="this.item" class="spotify-background">
         <div class="container-fluid" id="scrollbar" style="overflow-y: auto; max-height: calc(100% - 40px);">
-            <div class="row" style="margin-top: 2%;">
-                <div class="col-lg-3">
+            <div class="row justify-content-between" style="margin-top: 2%;">
+                <div style="margin-left: 30px;">
                     <img id="spotify-logo" src="../../../../assets/Spotify_Icon_RGB_White.png">
                 </div>
-                <div class="offset-lg-1 col-lg-3">
-                    <app-spotify-follows *ngIf="this.type == 'FOLLOWS'"></app-spotify-follows>
-                    <app-spotify-playlists *ngIf="this.type == 'PLAYLISTS'"></app-spotify-playlists>
-                    <app-spotify-profile *ngIf="this.type == 'PROFILE'"></app-spotify-profile>
+                <div>
+                    <button mat-mini-fab color="basic" style="margin-right: 30px;" (click)="this.deleteWidget()">
+                        <mat-icon>clear</mat-icon>
+                    </button>
                 </div>
-                <div class="offset-lg-4">
-                    <mat-icon style="color: white;" (click)="this.deleteWidget()">clear</mat-icon>
-                </div>
+            </div>
+            <div class="justify-content-center">
+                <app-spotify-follows *ngIf="this.type == 'FOLLOWS'"></app-spotify-follows>
+                <app-spotify-playlists *ngIf="this.type == 'PLAYLISTS'"></app-spotify-playlists>
+                <app-spotify-profile *ngIf="this.type == 'PROFILE'"></app-spotify-profile>
             </div>
         </div>
     </gridster-item>
