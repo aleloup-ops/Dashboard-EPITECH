@@ -3,7 +3,7 @@ import requests
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from ..firebase_auth.verification import verification
-import os
+import os, json
 # Create your views here.
 
 TWITCH_TOKEN_URL = "https://id.twitch.tv/oauth2/token"
@@ -53,7 +53,7 @@ def getProfile(request):
 
         if (test == None):
             return HttpResponse("The user doesn't exist", status=400)
-        
+
         head = {
             'Client-Id': client_key,
             'Authorization': 'Bearer ' + resp['twitchToken'],

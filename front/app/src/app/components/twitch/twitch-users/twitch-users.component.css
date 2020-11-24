@@ -2,3 +2,10 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: white;
 }
+
+#user_logo {
+    border: 3px solid white;
+    border-radius: 300px;
+    width: 50%;
+    height: 100%;
+}
