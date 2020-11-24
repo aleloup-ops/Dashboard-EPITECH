@@ -97,6 +97,10 @@ def getFollowers(request):
 
 def searchChannel(request):
     try:
+
+
+
+        
         uid = request.META.get("HTTP_AUTHORIZATION")
         if (verification.userExist(uid) == False):
             return HttpResponse("The user doesn't exist", status = 400)
