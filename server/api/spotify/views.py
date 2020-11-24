@@ -79,7 +79,7 @@ def getProfile(request):
         y = json.dumps(userInfos)
         #print(y)
         resp = json.loads(y)
-
+#
         code_payload = {
             "Authorization": "Bearer " + resp['spotifyToken'],
         }
@@ -118,10 +118,35 @@ def getPlaylists(request):
     except:
         return HttpResponse("No token provided", status = 401)
 
-def getTopTracks(request):
+def getPlaylists(request):
+
     try:
         uid = request.META.get("HTTP_AUTHORIZATION")
-        print(request.META)
+        if (verification.userExist(uid) == False):
+            return HttpResponse("The user doesn't exist", status = 400)
+
+        userInfos = verification.getValues(uid)
+
+        print(uid)
+
+        y = json.dumps(userInfos)
+        #print(y)
+        resp = json.loads(y)
+
+        code_payload = {
+            "Authorization": "Bearer " + resp['spotifyToken'],
+        }
+
+        getInfo = requests.get("https://api.spotify.com/v1/me/playlists", headers=code_payload)
+
+        return HttpResponse(getInfo)
+
+    except:
+        return HttpResponse("No token provided", status = 401)
+def getTopTracks(request):
+
+    try:
+        uid = request.META.get("HTTP_AUTHORIZATION")
         if (verification.userExist(uid) == False):
             return HttpResponse("The user doesn't exist", status = 400)
 
@@ -143,4 +168,3 @@ def getTopTracks(request):
 
     except:
         return HttpResponse("No token provided", status = 401)
-

@@ -15,6 +15,7 @@ import time
 import urllib3
 import urllib
 import os
+import json
 
 from ..firebase_auth.verification import verification
 # Create your views here.
@@ -79,7 +80,7 @@ class twitterApi():
 
         return HttpResponse("Logged")
 
-    def postOnTwitter():
+    def postOnTwitter(request):
         try:
             uid = request.META.get("HTTP_AUTHORIZATION")
             if (verification.userExist(uid) == False):
@@ -102,29 +103,30 @@ class twitterApi():
         except:
             return HttpResponse("No token provided", status = 401)
 
-    def myProfile():
-        try:
-            uid = request.META.get("HTTP_AUTHORIZATION")
-            if (verification.userExist(uid) == False):
-                return HttpResponse("The user doesn't exist", status = 400)
-            
-            userInfos = verification.getValues(uid)
-            y = json.dumps(userInfos)
-            resp = json.loads(y)
+    def myProfile(request):
+        #try:
+        uid = request.META.get("HTTP_AUTHORIZATION")
+        if (verification.userExist(uid) == False):
+            return HttpResponse("The user doesn't exist", status = 400)
+        
+        userInfos = verification.getValues(uid)
+        y = json.dumps(userInfos)
+        resp = json.loads(y)
+        
+        consumer = oauth.Consumer(client_key, client_secret)
+        real_token = oauth.Token(resp['twitterToken'], resp['twitterSecretToken'])
+        real_client = oauth.Client(consumer, real_token)
 
-            real_token = oauth.Token(resp['twitterToken'], resp['twitterSecretToken'])
-            real_client = oauth.Client(consumer, real_token)
+        real_resp, real_content = real_client.request(
+            "https://api.twitter.com/1.1/statuses/home_timeline.json", "GET")
 
-            real_resp, real_content = real_client.request(
-                "https://api.twitter.com/1.1/statuses/home_timeline.json", "GET")
+        return HttpResponse(real_content)
 
-            return HttpResponse(real_content)
-
-        except:
-            return HttpResponse("No token provided", status = 401)
+        #except:
+        #    return HttpResponse("No token provided", status = 401)
 
 
-    def searchTweet():
+    def searchTweet(request):
         try:
             uid = request.META.get("HTTP_AUTHORIZATION")
             if (verification.userExist(uid) == False):
