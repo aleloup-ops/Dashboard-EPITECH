@@ -143,6 +143,8 @@ def getPlaylists(request):
 
     except:
         return HttpResponse("No token provided", status = 401)
+
+
 def getTopTracks(request):
 
     try:
