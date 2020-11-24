@@ -13,6 +13,9 @@ from firebase_admin import firestore
 import random
 import time
 import urllib3
+from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 import urllib
 import os
 import json
@@ -74,7 +77,10 @@ class twitterApi():
         verification.updateValueFirebase(uid, "twitterSecretToken", request_token["oauth_token_secret"])
 
         return HttpResponse("Logged")
-
+    
+    @ensure_csrf_cookie
+    @csrf_exempt
+    @api_view(['POST'])
     def postOnTwitter(request):
         try:
 
@@ -127,33 +133,35 @@ class twitterApi():
         except:
             return HttpResponse("No token provided", status = 401)
 
-
+    @ensure_csrf_cookie
+    @csrf_exempt
+    @api_view(['POST'])
     def searchTweet(request):
-        try:
-            uid = request.META.get("HTTP_AUTHORIZATION")
+        #try:
+        uid = request.META.get("HTTP_AUTHORIZATION")
 
-            text = request.data['search']
+        text = request.data['search']
 
-            if (text == None or text == ""):
-                return HttpResponse("Write a text to post on twitter le s", status = 400)
+        if (text == None or text == ""):
+            return HttpResponse("Write a text to post on twitter le s", status = 400)
 
-            if (verification.userExist(uid) == False):
-                return HttpResponse("The user doesn't exist", status = 400)
-            
-            userInfos = verification.getValues(uid)
-            y = json.dumps(userInfos)
-            resp = json.loads(y)
+        if (verification.userExist(uid) == False):
+            return HttpResponse("The user doesn't exist", status = 400)
+        
+        userInfos = verification.getValues(uid)
+        y = json.dumps(userInfos)
+        resp = json.loads(y)
 
-            consumer = oauth.Consumer(client_key, client_secret)
-            real_token = oauth.Token(resp['twitterToken'], resp['twitterSecretToken'])
-            real_client = oauth.Client(consumer, real_token)
+        consumer = oauth.Consumer(client_key, client_secret)
+        real_token = oauth.Token(resp['twitterToken'], resp['twitterSecretToken'])
+        real_client = oauth.Client(consumer, real_token)
 
-            real_resp, real_content = real_client.request(
-                "https://api.twitter.com/1.1/search/tweets.json?q=" + text + "&result_type=popular", "GET")
+        real_resp, real_content = real_client.request(
+            "https://api.twitter.com/1.1/search/tweets.json?q=" + text + "&result_type=popular", "GET")
 
-            return HttpResponse(real_content)
+        return HttpResponse(real_content)
 
-        except:
-            return HttpResponse("No token provided", status = 401)
+        #except:
+        #    return HttpResponse("No token provided", status = 401)
 
 
