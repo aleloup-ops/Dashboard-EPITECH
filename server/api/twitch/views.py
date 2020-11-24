@@ -3,9 +3,9 @@ import requests
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from ..firebase_auth.verification import verification
+from rest_framework.decorators import api_view
 import os
 import json
-# Create your views here.
 
 TWITCH_TOKEN_URL = "https://id.twitch.tv/oauth2/token"
 CLIENT_SIDE_URL = "http://localhost"
@@ -82,10 +82,8 @@ def getFollowers(request):
             'Client-Id': client_key,
             'Authorization': 'Bearer ' + resp['twitchToken'],
         }
-        #first request
-        getInfo = requests.get("https://api.twitch.tv/helix/users", headers=head)
 
-        #second request which need the first one
+        getInfo = requests.get("https://api.twitch.tv/helix/users", headers=head)
         getInfoJson = getInfo.json()
 
         getInfo = requests.get("https://api.twitch.tv/helix/users/follows?from_id=" + getInfoJson.get("data")[0]["id"], headers=head)
@@ -94,11 +92,14 @@ def getFollowers(request):
 
     except:
         return HttpResponse("No token provided", status = 401)
-
+#
+@api_view(['POST'])
 def searchChannel(request):
     try:
+        searchName = request.data['channel']
 
-
+        if (searchName == None or searchName == ""):
+            return HttpResponse("Write a channel to search on twitch le s", status = 400)
 
         
         uid = request.META.get("HTTP_AUTHORIZATION")
@@ -114,10 +115,8 @@ def searchChannel(request):
             'Client-Id': client_key,
             'Authorization': 'Bearer ' + resp['twitchToken'],
         }
-        searchName = "gotaga"
-    #third request
-        getInfo = requests.get("https://api.twitch.tv/helix/search/channels?query=" + searchName, headers=head)
 
+        getInfo = requests.get("https://api.twitch.tv/helix/search/channels?query=" + searchName, headers=head)
         return HttpResponse(getInfo)
 
     except:

@@ -13,6 +13,9 @@ from firebase_admin import firestore
 import random
 import time
 import urllib3
+from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 import urllib
 import os
 import json
@@ -74,7 +77,10 @@ class twitterApi():
         verification.updateValueFirebase(uid, "twitterSecretToken", request_token["oauth_token_secret"])
 
         return HttpResponse("Logged")
-
+    
+    @ensure_csrf_cookie
+    @csrf_exempt
+    @api_view(['POST'])
     def postOnTwitter(request):
         try:
 
@@ -95,10 +101,8 @@ class twitterApi():
             real_token = oauth.Token(resp['twitterToken'], resp['twitterSecretToken'])
             real_client = oauth.Client(consumer, real_token)
 
-
-
             real_resp, real_content = real_client.request(
-                "https://api.twitter.com/1.1/statuses/update.json" + '?status="' + text + '"', "POST")
+                "https://api.twitter.com/1.1/statuses/update.json" + '?status=' + text, "POST")
 
             return HttpResponse(real_content)
 
@@ -127,7 +131,9 @@ class twitterApi():
         except:
             return HttpResponse("No token provided", status = 401)
 
-
+    @ensure_csrf_cookie
+    @csrf_exempt
+    @api_view(['POST'])
     def searchTweet(request):
         try:
             uid = request.META.get("HTTP_AUTHORIZATION")

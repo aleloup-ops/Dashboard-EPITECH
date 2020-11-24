@@ -27,6 +27,8 @@ SECRET_KEY = '7+3n-ff@f=2pa!s6w_qa!qq-dlxjn*-(g$2$uj9(&wngz27@-i'
 
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
+#CSRF_COOKIE_SECURE = False
+#CSRF_COOKIE_HTTPONLY = False
 
 # Application definition
 
