@@ -1,4 +1,18 @@
 #widget-name {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: white;
+    font-size: xx-large;
+}
+
+.text_bar {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 20px;
+}
+
+.post-button {
+    border-radius: 30px;
+    margin-left: 5px;
+    color: white;
+    background-color: #1DA1F2;
 }

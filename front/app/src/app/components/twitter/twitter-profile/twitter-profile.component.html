@@ -1,3 +1,14 @@
-<div>
-    <h1 id="widget-name">Profile</h1>
+<div class="row justify-content-center">
+    <h1 id="widget-name">Post a Tweet</h1>
+</div>
+<div class="row justify-content-center">
+    <div class=" col-lg-4 text_bar">
+        <form>
+            <mat-form-field>
+            <mat-label>Ex. Hello World !</mat-label>
+            <input type="text" matInput [(ngModel)]="input" name="input">
+            </mat-form-field>
+            <button class="post-button" mat-raised-button color="basic" (click)="postTweets()">Tweet</button>
+        </form>
+    </div>
 </div>
