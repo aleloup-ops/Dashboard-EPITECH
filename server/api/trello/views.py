@@ -10,6 +10,7 @@ from firebase_admin import auth
 from firebase_admin import credentials
 from firebase_admin import db
 from firebase_admin import firestore
+from rest_framework.decorators import api_view
 import random
 import time
 import urllib3
@@ -94,26 +95,42 @@ class trelloApi():
         except:
             return HttpResponse("No token provided", status = 401)
 
+    @api_view(['POST'])
     def getCards(request):
-        try:
-            uid = request.META.get("HTTP_AUTHORIZATION")
-            if (verification.userExist(uid) == False):
-                return HttpResponse("The user doesn't exist", status = 400)
-            
-            userInfos = verification.getValues(uid)
-            y = json.dumps(userInfos)
-            resp = json.loads(y)
+        #try:
 
-            post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/cards?key=" + client_key + "&token=" + resp['trelloToken'])
+        uid = request.META.get("HTTP_AUTHORIZATION")
+        if (verification.userExist(uid) == False):
+            return HttpResponse("The user doesn't exist", status = 400)
+
+        boardName = request.data['board']
+
+        if (boardName == None or boardName == ""):
+            return HttpResponse("Write a text to post on twitter le s", status = 400)
 
 
-            return HttpResponse(post_request)
+        
+        userInfos = verification.getValues(uid)
+        y = json.dumps(userInfos)
+        resp = json.loads(y)
 
-        except:
-            return HttpResponse("No token provided", status = 401)
+        post_request = requests.get("https://api.trello.com/1/boards/" + boardName + "/cards?key=" + client_key + "&token=" + resp['trelloToken'])
 
+
+        return HttpResponse(post_request)
+
+        #except:
+        #    return HttpResponse("No token provided", status = 401)
+
+    @api_view(['POST'])
     def getMembers(request):
         try:
+
+            boardName = request.data['board']
+
+            if (boardName == None or boardName == ""):
+                return HttpResponse("Write a text to post on twitter le s", status = 400)
+
             uid = request.META.get("HTTP_AUTHORIZATION")
             if (verification.userExist(uid) == False):
                 return HttpResponse("The user doesn't exist", status = 400)
@@ -122,7 +139,9 @@ class trelloApi():
             y = json.dumps(userInfos)
             resp = json.loads(y)
 
-            post_request = requests.get("https://api.trello.com/1/boards/" + "5fa285b3a03eb66f820cf28b" + "/members?key=" + client_key + "&token=" + resp['trelloToken'])
+    #"5fa285b3a03eb66f820cf28b" 
+
+            post_request = requests.get("https://api.trello.com/1/boards/" + boardName + "/members?key=" + client_key + "&token=" + resp['trelloToken'])
 
             return HttpResponse(post_request)
 

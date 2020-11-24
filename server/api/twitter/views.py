@@ -13,8 +13,12 @@ from firebase_admin import firestore
 import random
 import time
 import urllib3
+from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 import urllib
 import os
+import json
 
 from ..firebase_auth.verification import verification
 # Create your views here.
@@ -43,13 +47,8 @@ class twitterApi():
 
             print(auth_header)
 
-            #GET FIRST OAUTH_TOKEN TO ACCESS API
             resp, content = client.request(request_token_url, "GET")
             request_token = dict(urllib.parse.parse_qsl(content.decode("utf-8")))
-
-            #print("Request Token:")
-            #print(request_token["oauth_token"])
-            #print(request_token["oauth_token_secret"])
 
             x = redirect("https://api.twitter.com/oauth/authenticate?oauth_token=" + request_token["oauth_token"])
             return x
@@ -78,9 +77,18 @@ class twitterApi():
         verification.updateValueFirebase(uid, "twitterSecretToken", request_token["oauth_token_secret"])
 
         return HttpResponse("Logged")
-
-    def postOnTwitter():
+    
+    @ensure_csrf_cookie
+    @csrf_exempt
+    @api_view(['POST'])
+    def postOnTwitter(request):
         try:
+
+            text = request.data['text']
+
+            if (text == None or text == ""):
+                return HttpResponse("Write a text to post on twitter le s", status = 400)
+            
             uid = request.META.get("HTTP_AUTHORIZATION")
             if (verification.userExist(uid) == False):
                 return HttpResponse("The user doesn't exist", status = 400)
@@ -89,20 +97,19 @@ class twitterApi():
             y = json.dumps(userInfos)
             resp = json.loads(y)
 
+            consumer = oauth.Consumer(client_key, client_secret)
             real_token = oauth.Token(resp['twitterToken'], resp['twitterSecretToken'])
             real_client = oauth.Client(consumer, real_token)
 
-            text = "Hello from API, je vais me glocker"
-
             real_resp, real_content = real_client.request(
-                "https://api.twitter.com/1.1/statuses/update.json" + '?status="' + text + '"', "POST")
+                "https://api.twitter.com/1.1/statuses/update.json" + '?status=' + text, "POST")
 
             return HttpResponse(real_content)
 
         except:
             return HttpResponse("No token provided", status = 401)
 
-    def myProfile():
+    def myProfile(request):
         try:
             uid = request.META.get("HTTP_AUTHORIZATION")
             if (verification.userExist(uid) == False):
@@ -112,6 +119,7 @@ class twitterApi():
             y = json.dumps(userInfos)
             resp = json.loads(y)
 
+            consumer = oauth.Consumer(client_key, client_secret)
             real_token = oauth.Token(resp['twitterToken'], resp['twitterSecretToken'])
             real_client = oauth.Client(consumer, real_token)
 
@@ -123,10 +131,18 @@ class twitterApi():
         except:
             return HttpResponse("No token provided", status = 401)
 
-
-    def searchTweet():
+    @ensure_csrf_cookie
+    @csrf_exempt
+    @api_view(['POST'])
+    def searchTweet(request):
         try:
             uid = request.META.get("HTTP_AUTHORIZATION")
+
+            text = request.data['search']
+
+            if (text == None or text == ""):
+                return HttpResponse("Write a text to post on twitter le s", status = 400)
+
             if (verification.userExist(uid) == False):
                 return HttpResponse("The user doesn't exist", status = 400)
             
@@ -134,10 +150,9 @@ class twitterApi():
             y = json.dumps(userInfos)
             resp = json.loads(y)
 
+            consumer = oauth.Consumer(client_key, client_secret)
             real_token = oauth.Token(resp['twitterToken'], resp['twitterSecretToken'])
             real_client = oauth.Client(consumer, real_token)
-
-            text = "nasa"
 
             real_resp, real_content = real_client.request(
                 "https://api.twitter.com/1.1/search/tweets.json?q=" + text + "&result_type=popular", "GET")

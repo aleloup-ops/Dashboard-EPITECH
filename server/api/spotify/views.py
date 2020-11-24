@@ -55,7 +55,7 @@ def spotifyCall(request, url):
 
         y = json.dumps(userInfos)
         resp = json.loads(y)
-
+#
         code_payload = {
             "Authorization": "Bearer " + resp['spotifyToken'],
         }
@@ -94,7 +94,54 @@ def getProfile(request):
     #return spotifyCall(request, "https://api.spotify.com/v1/me")
 
 def getPlaylists(request):
-    return spotifyCall(request, "https://api.spotify.com/v1/me/playlists")
 
-def getTopTracks(requet):
-    return spotifyCall(request, "https://api.spotify.com/v1/me/top/tracks")
+    try:
+        uid = request.META.get("HTTP_AUTHORIZATION")
+        if (verification.userExist(uid) == False):
+            return HttpResponse("The user doesn't exist", status = 400)
+
+        userInfos = verification.getValues(uid)
+
+        print(uid)
+
+        y = json.dumps(userInfos)
+        #print(y)
+        resp = json.loads(y)
+
+        code_payload = {
+            "Authorization": "Bearer " + resp['spotifyToken'],
+        }
+
+        getInfo = requests.get("https://api.spotify.com/v1/me/playlists", headers=code_payload)
+
+        return HttpResponse(getInfo)
+
+    except:
+        return HttpResponse("No token provided", status = 401)
+
+
+def getTopTracks(request):
+
+    try:
+        uid = request.META.get("HTTP_AUTHORIZATION")
+        if (verification.userExist(uid) == False):
+            return HttpResponse("The user doesn't exist", status = 400)
+
+        userInfos = verification.getValues(uid)
+
+        print(uid)
+
+        y = json.dumps(userInfos)
+        #print(y)
+        resp = json.loads(y)
+
+        code_payload = {
+            "Authorization": "Bearer " + resp['spotifyToken'],
+        }
+
+        getInfo = requests.get("https://api.spotify.com/v1/me/top/tracks", headers=code_payload)
+
+        return HttpResponse(getInfo)
+
+    except:
+        return HttpResponse("No token provided", status = 401)
