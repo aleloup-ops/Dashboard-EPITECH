@@ -18,11 +18,12 @@ export class TwitchSearchComponent implements OnInit {
     ngOnInit(): void { }
 
     ngOnDestroy () {
-        this.subscription.unsubscribe();
+        if (this.subscription != undefined)
+            this.subscription.unsubscribe();
     }
 
     fetchSearch (search: string) {
-        /*const uid = JSON.parse(localStorage.getItem('user')).uid
+        const uid = JSON.parse(localStorage.getItem('user')).uid
 
         const httpOptions = {
             headers: new HttpHeaders({
@@ -31,8 +32,8 @@ export class TwitchSearchComponent implements OnInit {
             })
         };
 
-        return this._httpClient.post<any>('http://localhost:8080/twitch/getfollowers', { 'aza': 'azaza' }, httpOptions);*/
-
-        console.log(search);
+        this.subscription = this._httpClient.post<any>('http://localhost:8080/twitch/search', { 'channel': search }, httpOptions).subscribe(result => {
+            console.log(result);
+        })
     }
 }
