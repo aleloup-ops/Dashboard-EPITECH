@@ -20,3 +20,8 @@ h1 {
     height: auto;
     border-radius: 10px;
 }
+
+.post-button {
+    margin-left: 5px;
+    border-radius: 20px;
+}

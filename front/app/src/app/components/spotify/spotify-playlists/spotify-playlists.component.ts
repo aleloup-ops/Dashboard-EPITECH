@@ -8,19 +8,26 @@ import { SpotifyWidgetsService } from '../../../shared/services/spotify-widgets.
 })
 export class SpotifyPlaylistsComponent implements OnInit {
 
-  constructor(public spotifyService: SpotifyWidgetsService) {
-    this.spotifyService.getPlaylists(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
-      console.log(response);
-      this.userPlaylists = response.items;
-    })
-  }
+    input: string = "";
+    search: string;
 
-  userPlaylists;
-  spotifyLink;
-  userFollowers;
-  userAvatar;
+    constructor(public spotifyService: SpotifyWidgetsService) {
+        this.spotifyService.getPlaylists(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
+        console.log(response);
+        this.userPlaylists = response.items;
+        })
+    }
 
-  ngOnInit(): void {
-  }
+    userPlaylists;
+    spotifyLink;
+    userFollowers;
+    userAvatar;
+
+    ngOnInit(): void {
+    }
+
+    filter() {
+        this.search = this.input;
+    }
 
 }

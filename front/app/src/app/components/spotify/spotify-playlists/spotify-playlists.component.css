@@ -19,3 +19,8 @@
 h1 {
     font-size: xx-large;
 }
+
+.post-button {
+    margin-left: 5px;
+    border-radius: 20px;
+}

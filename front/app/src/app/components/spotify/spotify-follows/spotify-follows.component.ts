@@ -8,6 +8,8 @@ import { SpotifyWidgetsService } from '../../../shared/services/spotify-widgets.
 })
 export class SpotifyFollowsComponent implements OnInit {
 
+    input: string = "";
+
   constructor(public spotifyService: SpotifyWidgetsService) {
     this.spotifyService.getTopTracks(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
       console.log(response);
