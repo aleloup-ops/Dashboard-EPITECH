@@ -32,12 +32,12 @@ export class WidgetCreationComponent implements OnInit {
      */
     saveWidget(service, type, params) {
         this.obj = {
-        'uid' : JSON.parse(localStorage.getItem('user')).uid,
-        'position' : [1, 1],
-        'params' : {'search' : params},
-        'service' : service,
-        'type' : type,
-        'id_widget' : '_' + Math.random().toString(36).substr(2, 9)
+            'uid' : JSON.parse(localStorage.getItem('user')).uid,
+            'position' : [1, 1],
+            'params' : {'search' : params},
+            'service' : service,
+            'type' : type,
+            'id_widget' : '_' + Math.random().toString(36).substr(2, 9)
         };
         this.output = <JSON>this.obj;
         console.log(this.output)

@@ -9,6 +9,7 @@ import {CompactType, DisplayGrid, Draggable, GridsterConfig, GridsterItem, GridT
 export class SaveWidgetsService {
 
     constructor(private http: HttpClient) { }
+
     ngOnInit() {
     }
 
@@ -34,10 +35,10 @@ export class SaveWidgetsService {
      * 
      * @param data 
      */
-    updateData(data) {
-        this.http.get<any>('http://localhost:8080/api/widget/').subscribe(response => {}, error => {
-        console.log('ERROR: ', error);
-        });    
+    updateData(data, uid, widget_id) {
+        this.http.post<any>('http://localhost:8080/api/widget/' + uid + '/params/' + widget_id, data).subscribe(response => {}, error => {
+            console.log('ERROR: ', error);
+        }); 
     }
 
     deleteWidget(uid, widget_id) {
