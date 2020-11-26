@@ -26,7 +26,17 @@ export class DashboardComponent implements OnInit {
     user: JSON;
 
     constructor(public authService: AuthService, public router: Router, public ngZone: NgZone,
-        public save: SaveWidgetsService, private elementRef: ElementRef) { }
+        public save: SaveWidgetsService, private elementRef: ElementRef) {
+
+            firebase.auth().onAuthStateChanged(user =>  {
+                if (user) {
+                    this.save.getData(user.uid).subscribe(response => {
+                        this.gridData = response.widget;
+                    })
+                }
+            });
+
+        }
 
     options: Safe;
     dashboard: Array<GridsterItem>;
@@ -35,14 +45,6 @@ export class DashboardComponent implements OnInit {
     showWaiting: boolean = false;
 
     ngOnInit(): void {
-
-        firebase.auth().onAuthStateChanged(user =>  {
-            if (user) {
-                this.save.getData(user.uid).subscribe(response => {
-                    this.gridData = response.widget;
-                })
-            }
-        });
 
         this.options = {
             gridType: GridType.Fit,

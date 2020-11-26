@@ -2,6 +2,9 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
+import firebase from 'firebase';
+require('firebase/auth');
+
 @Component({
     selector: 'app-trello-board',
     templateUrl: './trello-board.component.html',
@@ -10,35 +13,41 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 export class TrelloBoardComponent implements OnInit {
     data: any;
+    uid: string;
     subscription: Subscription;
 
-    constructor(private _httpClient: HttpClient) {
-        this.subscription = this.fetchBoard().subscribe(result => {
-            this.data = result;
+    constructor(private _httpClient: HttpClient) { }
 
-            console.log(result);            
-        })
+    ngOnInit(): void {
+        this.fetchBoard();
     }
 
-    ngOnInit(): void { }
-
     ngOnDestroy () {
-        this.subscription.unsubscribe();
+        if (this.subscription != undefined)
+            this.subscription.unsubscribe();
     }
 
     /**
      * 
      */
     fetchBoard () {
-        const uid = JSON.parse(localStorage.getItem('user')).uid
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.uid = user.uid;
 
-        const httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/json',
-              'Authorization': uid
-            })
-        };
+                const httpOptions = {
+                    headers: new HttpHeaders({
+                      'Content-Type':  'application/json',
+                      'Authorization': this.uid,
+                    })
+                };
 
-        return this._httpClient.get<any>('http://localhost:8080/trello/myboards', httpOptions);
+                this.subscription = this._httpClient.get<any>('http://localhost:8080/trello/myboards', httpOptions).subscribe(result => {
+                    this.data = result;
+
+                    console.log(result);
+                })
+            }
+        });
     }
 }
