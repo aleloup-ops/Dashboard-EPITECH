@@ -1,7 +1,9 @@
-<div>
-    <h1 id="widget-name">Profile</h1>
-
-    <h2> {{ this.data?.display_name }} </h2>
-
-    <img id="user_logo" src="{{ this.data?.profile_image_url }}"/>
+<div class="row justify-content-center">
+    <h1 id="widget-name">My Profile</h1>
+</div>
+<div class="row justify-content-center">
+    <h2> {{this.data.data[0].display_name}} </h2>
+</div>
+<div class="row justify-content-center">
+    <a target="_blank" href="https://twitch.tv/{{this.data.data[0].display_name}}"><img src="{{ this.data.data[0].profile_image_url }}"/></a>
 </div>

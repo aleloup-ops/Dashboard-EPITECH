@@ -15,8 +15,8 @@ export class TwitchUsersComponent implements OnInit {
 
     constructor(private _httpClient: HttpClient) {
         this.subscription = this.fetchProfile().subscribe(res => {
-            this.data = res.data[0]; 
-            console.log(res);
+            this.data = res; 
+            console.log(this.data.data[0]);
         });
     }
 
