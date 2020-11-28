@@ -15,7 +15,7 @@ import random
 import time
 import urllib3
 import urllib
-import os
+import os, json
 from requests_oauthlib import OAuth1Session
 from ..firebase_auth.verification import verification
 
@@ -97,30 +97,30 @@ class trelloApi():
 
     @api_view(['POST'])
     def getCards(request):
-        #try:
+        try:
 
-        uid = request.META.get("HTTP_AUTHORIZATION")
-        if (verification.userExist(uid) == False):
-            return HttpResponse("The user doesn't exist", status = 400)
+            uid = request.META.get("HTTP_AUTHORIZATION")
+            if (verification.userExist(uid) == False):
+                return HttpResponse("The user doesn't exist", status = 400)
 
-        boardName = request.data['board']
+            boardName = request.data['board']
 
-        if (boardName == None or boardName == ""):
-            return HttpResponse("Write a text to post on twitter le s", status = 400)
+            if (boardName == None or boardName == ""):
+                return HttpResponse("Write a text to post on twitter le s", status = 400)
+
+            print(boardName)
+            
+            userInfos = verification.getValues(uid)
+            y = json.dumps(userInfos)
+            resp = json.loads(y)
+
+            post_request = requests.get("https://api.trello.com/1/boards/" + boardName + "/cards?key=" + client_key + "&token=" + resp['trelloToken'])
 
 
-        
-        userInfos = verification.getValues(uid)
-        y = json.dumps(userInfos)
-        resp = json.loads(y)
+            return HttpResponse(post_request)
 
-        post_request = requests.get("https://api.trello.com/1/boards/" + boardName + "/cards?key=" + client_key + "&token=" + resp['trelloToken'])
-
-
-        return HttpResponse(post_request)
-
-        #except:
-        #    return HttpResponse("No token provided", status = 401)
+        except:
+            return HttpResponse("No token provided", status = 401)
 
     @api_view(['POST'])
     def getMembers(request):

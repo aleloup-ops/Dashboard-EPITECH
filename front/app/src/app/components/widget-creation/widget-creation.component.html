@@ -11,23 +11,23 @@
                         <h2 class="h2">Connect to a service</h2>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3" *ngIf="this.isConnectedSpotify == false">
+                        <div class="col-lg-3">
                             <button (click)="this.loginSpotify()" id="enable-spotify-connection">
                                 <img src="../../../assets/Spotify_Logo_RGB_White.png" alt="spotify_logo" id="spotify-logo">
                             </button>
                         </div>
-                        <div class="col-lg-3" *ngIf="this.isConnectedTwitch == false">
+                        <div class="col-lg-3">
                             <button id="enable-twitch-connection" (click)="this.loginTwitch()">
                                 <img src="../../../assets/TwitchGlitchWhite.png" alt="twitch_logo" id="twitch-logo1">
                                 <img src="../../../assets/Twitch-Wordmark-White.png" alt="twitch_logo" id="twitch-logo2">
                             </button>
                         </div>
-                        <div class="col-lg-3" *ngIf="this.isConnectedTwitter == false">
+                        <div class="col-lg-3">
                             <button (click)="this.loginTwitter()" id="enable-twitter-connection">
                                     <img src="../../../assets/Twitter_Logo_WhiteOnBlue.png" alt="twitter_logo" id="twitter-logo">
                             </button>
                         </div>
-                        <div class="col-lg-3" *ngIf="this.isConnectedTrello == false">
+                        <div class="col-lg-3">
                             <button (click)="this.loginTrello()" id="enable-trello-connection">
                                     <img src="../../../assets/trello.png" alt="trello-logo" id="trello-logo">
                             </button>
@@ -102,14 +102,14 @@
                         </div>
                     </div>
                     <div class="row" id="twitter_widgets">
-                        <button id="trello-widget" class="col-lg-2">
-                            <p class="widgets">My Timeline</p>
+                        <button id="trello-widget" class="col-lg-2" (click)="this.saveWidget('TRELLO', 'BOARD', null)">
+                            <p class="widgets">Board</p>
                         </button>
-                        <button id="trello-widget" class="col-lg-2 offset-lg-1">
-                            <p class="widgets">Tweet</p>
+                        <button id="trello-widget" class="col-lg-2 offset-lg-1" (click)="this.saveWidget('TRELLO', 'CARDS', null)">
+                            <p class="widgets">Cards</p>
                         </button>
-                        <button id="trello-widget" class="col-lg-2 offset-lg-1">
-                            <p class="widgets">Research</p>
+                        <button id="trello-widget" class="col-lg-2 offset-lg-1" (click)="this.saveWidget('TRELLO', 'MEMBERS', null)">
+                            <p class="widgets">Members</p>
                         </button>
                     </div>
                 </div>

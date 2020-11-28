@@ -35,6 +35,10 @@ import { SpotifyProfileComponent } from './components/spotify/spotify-profile/sp
 import { SpotifyPlaylistsComponent } from './components/spotify/spotify-playlists/spotify-playlists.component';
 import { SpotifyFollowsComponent } from './components/spotify/spotify-follows/spotify-follows.component';
 import { SpotifyBaseComponent } from './components/spotify/spotify-base/spotify-base.component';
+import { TrelloBaseComponent } from './components/trello/trello-base/trello-base.component';
+import { TrelloBoardComponent } from './components/trello/trello-board/trello-board.component';
+import { TrelloCardsComponent } from './components/trello/trello-cards/trello-cards.component';
+import { TrelloMembersComponent } from './components/trello/trello-members/trello-members.component';
 
 
 @NgModule({
@@ -55,7 +59,11 @@ import { SpotifyBaseComponent } from './components/spotify/spotify-base/spotify-
     SpotifyProfileComponent,
     SpotifyPlaylistsComponent,
     SpotifyFollowsComponent,
-    SpotifyBaseComponent
+    SpotifyBaseComponent,
+    TrelloBaseComponent,
+    TrelloBoardComponent,
+    TrelloCardsComponent,
+    TrelloMembersComponent
   ],
 
   imports: [

@@ -1,11 +1,12 @@
 import { Component, NgZone, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
 import { Router, Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 
+import firebase from 'firebase';
+require('firebase/auth');
+
 import { AuthService } from '../../shared/services/auth.service';
 import { SaveWidgetsService } from '../../shared/services/save-widgets.service';
-
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-
 import { CompactType, DisplayGrid, Draggable, GridsterConfig, GridsterItem, GridType, PushDirections, Resizable } from 'angular-gridster2';
 
 interface Safe extends GridsterConfig {
@@ -20,18 +21,20 @@ interface Safe extends GridsterConfig {
     styleUrls: ['./dashboard.component.css']
 })
 
+
 export class DashboardComponent implements OnInit {
+    user: JSON;
 
     constructor(public authService: AuthService, public router: Router, public ngZone: NgZone,
         public save: SaveWidgetsService, private elementRef: ElementRef) {
 
-            setTimeout(() => {
-                this.save.getData(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
-                    this.gridData = response.widget;
-                })
-
-                this.showWaiting = false;
-            }, 4000);
+            firebase.auth().onAuthStateChanged(user =>  {
+                if (user) {
+                    this.save.getData(user.uid).subscribe(response => {
+                        this.gridData = response.widget;
+                    })
+                }
+            });
 
         }
 
@@ -39,7 +42,7 @@ export class DashboardComponent implements OnInit {
     dashboard: Array<GridsterItem>;
     gridData;
 
-    showWaiting: boolean = true;
+    showWaiting: boolean = false;
 
     ngOnInit(): void {
 

@@ -1,0 +1,11 @@
+.trello-background {
+    background-color: #cce7e8;
+    border: 6px solid #b9a3e3;
+    border-radius: 10px;
+}
+
+#trello-logo {
+    margin-top: 2%;
+    width: 45%;
+    height: auto;
+}
