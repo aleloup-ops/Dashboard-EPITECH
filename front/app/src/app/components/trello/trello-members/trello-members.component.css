@@ -1,0 +1,42 @@
+#widget-name {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: white;
+}
+
+.member {
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+    font-size: large;
+}
+
+.user_img {
+    background-color: #dfe1e6;
+    border-radius: 25em;
+    cursor: default;
+    display: block;
+    flex: 0 0 85px;
+    height: 70px;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    -webkit-user-select: none;
+    user-select: none;
+    width: 70px;
+    z-index: 0;
+}
+
+.user_initials {
+    display: block;
+    font-size: 34px;
+    line-height: 85px;
+    overflow: hidden;
+    top: 0;
+    height: 85px;
+    width: 85px;
+    z-index: 1;
+    margin-left: 15%;
+    margin-bottom: 40%;
+    font-weight: 500;
+}

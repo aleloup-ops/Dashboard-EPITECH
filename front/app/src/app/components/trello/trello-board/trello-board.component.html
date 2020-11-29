@@ -1,3 +1,9 @@
-<div>
-    <h1 id="widget-name">Board</h1>
+<div class="row justify-content-center">
+    <h1 id="widget-name">Boards</h1>
+</div>
+<div class="row">
+    <div class="col-lg-4 board" *ngFor="let board of this.data">
+            <p>Title : {{board.name}} (<a target="_blank" href="{{board.url}}">See</a>)</p>
+            <p>There's {{board.memberships.length}} members on this board</p>
+    </div>
 </div>

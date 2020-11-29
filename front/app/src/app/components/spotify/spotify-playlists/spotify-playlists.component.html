@@ -1,3 +1,22 @@
-<div>
-    <h1 id="widget-name">Playlists</h1>
+<div class="row justify-content-center">
+    <h1 id="widget-name">My Playlists</h1>
+</div>
+<div class="row justify-content-center" class="text_bar">
+    <form>
+        <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input type="text" placeholder="Filter" matInput [(ngModel)]="input" name="input">
+        </mat-form-field>
+    </form>
+</div>
+<div *ngFor="let item of this.userPlaylists; let index = index;">
+    <div class="row playlists" *ngIf="item.name.toLowerCase().match(this.input.toLowerCase())">
+        <div class="col-lg-3">
+            <a target="_blank" href="{{item.external_urls.spotify}}"><img class="playlist_cover" src="{{item.images[0].url}}"></a>
+        </div>
+        <div class="offset-lg-2 col-lg-7">
+            <h1>{{item.name}} ({{item.tracks.total}} tracks)</h1>
+            <h2>{{item.description}}</h2>
+        </div>
+    </div>
 </div>

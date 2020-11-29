@@ -1,3 +1,26 @@
-<div>
-    <h1 id="widget-name">Profile</h1>
+<div class="row justify-content-center">
+    <h1 id="widget-name">My Top Tracks</h1>
+</div>
+<div class="row justify-content-center" class="text_bar">
+    <form>
+        <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input type="text" placeholder="Filter" matInput [(ngModel)]="input" name="input">
+        </mat-form-field>
+    </form>
+</div>
+<div *ngFor="let item of this.userTracks; let index = index;">
+    <div class="row tracks"  *ngIf="item.name.toLowerCase().match(this.input.toLowerCase())">
+        <div class="col-lg-1">
+            <h1>{{index + 1}}</h1>
+        </div>
+        <div class="col-lg-2">
+            <a target="_blank" href="{{item.album.external_urls.spotify}}"><img class="playlist_cover" src="{{item.album.images[0].url}}"></a>
+        </div>
+        <div class="col-lg-7">
+            <h2>{{item.name}} ({{item.artists[0].name}})</h2>
+            <h2>{{item.description}}</h2>
+        </div>
+    </div>
+
 </div>

@@ -50,4 +50,14 @@ export class TrelloMembersComponent implements OnInit {
         })
     }
 
+    getInitials(username: string) {
+        var matches = username.match(/\b(\w)/g);
+        var initial = "";
+        for (var match in matches) {
+            console.log(matches);
+            initial += matches[match];
+        }
+        return initial;
+    }
+
 }

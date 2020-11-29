@@ -1,18 +1,20 @@
 <div *ngIf="this.state == true">
     <gridster-item [item]="this.item" class="twitter-background">
-        <div class="container-fluid">
-            <div class="row" style="margin-top: 2%;">
-                <div class="col-lg-3">
+        <div class="container-fluid" id="scrollbar" style="overflow-y: auto; max-height: calc(100% - 40px);">
+            <div class="row justify-content-between" style="margin-top: 2%;">
+                <div style="margin-left: 30px;">
                     <img id="twitter-logo" src="../../../../assets/Twitter_Logo_WhiteOnBlue.png">
                 </div>
-                <div class="offset-lg-1 col-lg-3">
-                    <app-twitter-profile *ngIf="this.type == 'PROFILE'"></app-twitter-profile>
-                    <app-twitter-search *ngIf="this.type == 'SEARCH'"></app-twitter-search>
-                    <app-twitter-timeline *ngIf="this.type == 'TIMELINE'"></app-twitter-timeline>
+                <div>
+                    <button mat-mini-fab color="basic" style="margin-right: 30px;" (click)="this.deleteWidget()">
+                        <mat-icon>clear</mat-icon>
+                    </button>
                 </div>
-                <div class="offset-lg-4">
-                    <mat-icon style="color: white;" (click)="this.deleteWidget()">clear</mat-icon>
-                </div>
+            </div>
+            <div class="justify-content-center">
+                <app-twitter-profile *ngIf="this.type == 'TWEET'"></app-twitter-profile>
+                <app-twitter-search *ngIf="this.type == 'SEARCH'" param="{{this.param}}" widget_id="{{this.widget_id}}"></app-twitter-search>
+                <app-twitter-timeline *ngIf="this.type == 'TIMELINE'"></app-twitter-timeline>
             </div>
         </div>
     </gridster-item>

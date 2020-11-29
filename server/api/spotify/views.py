@@ -46,30 +46,56 @@ def callback(request):
     return redirect('http://localhost:4200/widgets/')
 
 def spotifyCall(request, url):
+    uid = request.META.get("HTTP_AUTHORIZATION")
+    if (verification.userExist(uid) == False):
+        return HttpResponse("The user doesn't exist", status = 400)
+
+    userInfos = verification.getValues(uid)
+
+    y = json.dumps(userInfos)
+    resp = json.loads(y)
+
+    code_payload = {
+        "Authorization": "Bearer " + resp['spotifyToken'],
+    }
+
+    getInfo = requests.get(url, headers=head)
+
+    return HttpResponse(getInfo)
+
+    return HttpResponse("No token provided", status = 401)
+
+def getProfile(request):
     try:
         uid = request.META.get("HTTP_AUTHORIZATION")
+        print(request.META)
         if (verification.userExist(uid) == False):
             return HttpResponse("The user doesn't exist", status = 400)
 
         userInfos = verification.getValues(uid)
 
+        print(uid)
+
         y = json.dumps(userInfos)
+        #print(y)
         resp = json.loads(y)
 #
         code_payload = {
             "Authorization": "Bearer " + resp['spotifyToken'],
         }
 
-        getInfo = requests.get(url, headers=head)
+        getInfo = requests.get("https://api.spotify.com/v1/me", headers=code_payload)
 
         return HttpResponse(getInfo)
 
     except:
         return HttpResponse("No token provided", status = 401)
+    #return spotifyCall(request, "https://api.spotify.com/v1/me")
 
-def getProfile(request):
+def getPlaylists(request):
     try:
         uid = request.META.get("HTTP_AUTHORIZATION")
+        print(request.META)
         if (verification.userExist(uid) == False):
             return HttpResponse("The user doesn't exist", status = 400)
 
@@ -85,13 +111,12 @@ def getProfile(request):
             "Authorization": "Bearer " + resp['spotifyToken'],
         }
 
-        getInfo = requests.get("https://api.spotify.com/v1/me", headers=code_payload)
+        getInfo = requests.get("https://api.spotify.com/v1/me/playlists", headers=code_payload)
 
         return HttpResponse(getInfo)
 
     except:
         return HttpResponse("No token provided", status = 401)
-    #return spotifyCall(request, "https://api.spotify.com/v1/me")
 
 def getPlaylists(request):
 

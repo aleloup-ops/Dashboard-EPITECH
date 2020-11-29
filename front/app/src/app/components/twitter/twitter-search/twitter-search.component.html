@@ -1,3 +1,38 @@
-<div>
-    <h1 id="widget-name">Search</h1>
+<div class="row justify-content-center">
+    <h1 *ngIf="this.search == true" id="widget-name">Search tweets</h1>
+    <h1 *ngIf="this.search == false" id="widget-name">#{{this.param}}</h1>
+    <button *ngIf="this.search == false" mat-mini-fab color="primary" (click)="this.search = true" style="background-color: white; margin-left: 10px; color: black;">
+        <mat-icon>carpenter</mat-icon>
+    </button>
+</div>
+<div class="row justify-content-center">
+    <div *ngIf="this.search == true" class=" col-lg-4 text_bar">
+        <form>
+            <mat-form-field>
+            <mat-label>Ex. Hello World !</mat-label>
+            <input type="text" matInput [(ngModel)]="input" name="input">
+            </mat-form-field>
+            <button class="post-button" mat-raised-button color="basic" (click)="postSearch()">Tweet</button>
+        </form>
+    </div>
+</div>
+<div *ngIf="this.search == false">
+    <div *ngFor="let item of this.userSearch.statuses; let index = index;" class="posts">
+        <div class="row">
+            <div class="col-lg-2">
+                <a target="_blank" href="https://twitter.com/{{item.user.screen_name}}"><img class="user_cover" src="{{item.user.profile_image_url}}"></a>
+            </div>
+            <div class="offset-lg-1 col-lg-8">
+                <p>{{item.text}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <p>{{item.user.name}}({{item.user.screen_name}})</p>
+            </div>
+            <div class="offset-lg-7 col-lg-2" *ngIf="item.entities.urls[0] != undefined">
+                <a target="_blank" href="{{item.entities.urls[0].url}}">Voir sur Twitter</a>
+            </div>
+        </div>
+    </div>
 </div>

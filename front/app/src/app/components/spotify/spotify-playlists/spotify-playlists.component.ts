@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SpotifyWidgetsService } from '../../../shared/services/spotify-widgets.service';
 
 @Component({
   selector: 'app-spotify-playlists',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpotifyPlaylistsComponent implements OnInit {
 
-  constructor() { }
+    input: string = "";
+    search: string;
 
-  ngOnInit(): void {
-  }
+    constructor(public spotifyService: SpotifyWidgetsService) {
+        this.spotifyService.getPlaylists(JSON.parse(localStorage.getItem('user')).uid).subscribe(response => {
+        console.log(response);
+        this.userPlaylists = response.items;
+        })
+    }
+
+    userPlaylists;
+    spotifyLink;
+    userFollowers;
+    userAvatar;
+
+    ngOnInit(): void {
+    }
+
+    filter() {
+        this.search = this.input;
+    }
 
 }

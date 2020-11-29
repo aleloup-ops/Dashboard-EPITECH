@@ -14,7 +14,7 @@ export class TwitchFollowsComponent implements OnInit {
 
     constructor(private _httpClient: HttpClient) {
         this.subscription = this.fetchFollowers().subscribe(resultat => {
-            this.data = resultat;
+            this.data = resultat.data;
 
             console.log(this.data);            
         })

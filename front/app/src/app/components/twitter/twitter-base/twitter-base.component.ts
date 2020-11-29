@@ -19,6 +19,7 @@ export class TwitterBaseComponent implements OnInit {
   @Input() position: Array<number>;
   @Input() type: string;
   @Input() widget_id: string;
+  @Input() param: string;
 
   constructor(public deleteService: SaveWidgetsService) { }
   item: GridsterItem;

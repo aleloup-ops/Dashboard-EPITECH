@@ -1,13 +1,32 @@
-<div>
+<div class="row justify-content-center">
     <h1 id="widget-name">Search</h1>
-
-    <form class="example-form" (ngSubmit)="this.fetchSearch(userEmail.value)">
-        <mat-form-field appearance="fill">
-            <mat-label>Search</mat-label>
-            <input matInput placeholder="Your search" #userEmail required>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" type="submit" class="login">Search</button>
-    </form>
-
+</div>
+<div class="row justify-content-center">
+    <div class="col-lg-4 text_bar">
+        <form (ngSubmit)="this.fetchSearch(userEmail.value)">
+            <mat-form-field>
+                <mat-label>Search</mat-label>
+                <input matInput placeholder="Your search" #userEmail required class="login">
+            </mat-form-field>
+            <button mat-raised-button type="submit" class="login">Search</button>
+        </form>
+    </div>
+</div>
+<div *ngIf="this.search == true">
+    <div *ngFor="let data of this.data" class="results row">
+        <div class="col-lg-1">
+            <img class="language" src="../../../../assets/fr.png" *ngIf="data.broadcaster_language == 'fr'">
+            <img class="language" src="../../../../assets/en.svg" *ngIf="data.broadcaster_language == 'en'">
+        </div>
+        <div class="col-lg-1">
+            <a target="_blank" href="https://twitch.tv/{{data.display_name}}"><img class="user_img" src="{{data.thumbnail_url}}"></a>
+        </div>
+        <div class="col-lg-3">
+            <p *ngIf="data.is_live == true" style="color: red;">{{data.display_name}} is actually online !</p>
+            <p *ngIf="data.is_live == false" style="color: black;">{{data.display_name}} is actually offline</p>
+        </div>
+        <div class="col-lg-5">
+            <p style="font-size: x-large;">{{data.title}}</p>
+        </div>
+    </div>
 </div>

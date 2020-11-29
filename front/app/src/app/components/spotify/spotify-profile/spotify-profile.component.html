@@ -1,3 +1,16 @@
-<div>
+<div class="row justify-content-center">
     <h1 id="widget-name">Profile</h1>
+</div>
+<div class="row justify-content-center">
+    <img id="user_logo" src="{{this.userAvatar}}">
+</div>
+<div class="row justify-content-center">
+    <a href="{{this.spotifyLink}}"><h2>{{this.userProfile.display_name}}</h2></a>
+</div>
+<div class="row justify-content-center">
+    <h2 style="color: #FFD700;" *ngIf="this.userProfile.product == 'premium'">     (Premium User)</h2>
+    <h2 *ngIf="this.userProfile.product == 'open'">     (Non-Premium User)</h2>
+</div>
+<div class="row justify-content-center">
+    <h2>You have {{this.userFollowers}} followers</h2>
 </div>

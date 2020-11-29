@@ -12,6 +12,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class TwitchSearchComponent implements OnInit {
     data: any;
     subscription: Subscription;
+    search: boolean = false;
 
     constructor (private _httpClient: HttpClient) { }
 
@@ -34,6 +35,8 @@ export class TwitchSearchComponent implements OnInit {
 
         this.subscription = this._httpClient.post<any>('http://localhost:8080/twitch/search', { 'channel': search }, httpOptions).subscribe(result => {
             console.log(result);
+            this.data = result.data;
         })
+        this.search = true;
     }
 }

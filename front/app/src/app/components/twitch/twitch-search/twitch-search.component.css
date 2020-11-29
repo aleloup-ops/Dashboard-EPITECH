@@ -12,3 +12,35 @@
   .example-full-width {
     width: 100%;
   }
+
+.text_bar {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 20px;
+    margin-bottom: 5px;
+}
+
+.login {
+    margin-left: 5px;
+}
+
+.results {
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    margin-bottom: 2%;
+}
+
+.user_img {
+    width: 100%;
+    padding: 5px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.language {
+    width: 80%;
+    height: auto;
+    border-radius: 10px;
+}
