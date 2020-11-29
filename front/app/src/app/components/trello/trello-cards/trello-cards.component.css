@@ -1,0 +1,12 @@
+#widget-name {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: white;
+}
+
+.card {
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+}

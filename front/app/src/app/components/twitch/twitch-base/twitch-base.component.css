@@ -9,3 +9,7 @@
     width: 15%;
     height: auto;
 }
+
+#scrollbar::-webkit-scrollbar {
+    display: none;
+}

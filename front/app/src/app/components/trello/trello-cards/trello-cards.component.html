@@ -1,1 +1,11 @@
-<p>trello-cards works!</p>
+<div class="row justify-content-center">
+    <h1 id="widget-name">Cards</h1>
+</div>
+<div class="row justify-content-center">
+    <h1 style="color: white;">Board : Dashboard</h1>
+</div>
+<div class="row">
+    <div class="col-lg-3 card" *ngFor="let card of this.data">
+        <p>{{card.name}} (<a href="{{card.url}}">Voir</a>)</p>
+    </div>
+</div>
